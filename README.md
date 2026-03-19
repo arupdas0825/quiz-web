@@ -264,8 +264,8 @@ Score History         (All session records)
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
-- Email: your-email@example.com
+- GitHub: [@your-username](https://github.com/arupdas0825)
+- Email: dasarup0804@gmail.com
 
 ---
 
