@@ -20,14 +20,30 @@ export default function HistoryPage({ navigate, history }) {
         }}>
           📊 &nbsp;Score History
         </span>
-        <button className="btn-glass" onClick={() => navigate('welcome')}
-          style={{
-            background: 'rgba(255,255,255,0.10)',
-            padding: '7px 18px', fontSize: 13,
-            border: '1px solid rgba(255,255,255,0.2)'
-          }}>
-          🏠 Home
-        </button>
+
+        {/* ── Navigation Buttons ── */}
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button onClick={() => navigate('dashboard')}
+            style={{
+              background: 'rgba(100,160,255,0.15)',
+              padding: '7px 18px', fontSize: 13,
+              border: '1px solid rgba(100,160,255,0.35)',
+              borderRadius: 8, color: '#6eb4ff',
+              cursor: 'pointer', fontWeight: 'bold'
+            }}>
+            ← Dashboard
+          </button>
+          <button onClick={() => navigate('welcome')}
+            style={{
+              background: 'rgba(255,255,255,0.10)',
+              padding: '7px 18px', fontSize: 13,
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: 8, color: '#fff',
+              cursor: 'pointer'
+            }}>
+            🏠 Home
+          </button>
+        </div>
       </div>
 
       {/* CONTENT */}

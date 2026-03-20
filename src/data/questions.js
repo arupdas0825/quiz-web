@@ -1,6 +1,6 @@
 const questions = {
 
-  // ─────────────── DBMS (45 questions) ───────────────
+  // ─────────────── DBMS (45 + 15 code questions) ───────────────
   DBMS: [
     { q:"What does DBMS stand for?", options:["Data Backup Management System","Database Management System","Data Business Management System","Digital Base Management System"], ans:1 },
     { q:"Which is NOT a type of database model?", options:["Hierarchical","Network","Spiral","Relational"], ans:2 },
@@ -47,9 +47,25 @@ const questions = {
     { q:"What is the purpose of TRUNCATE?", options:["Delete specific rows","Delete all rows (fast)","Drop the table","Create table"], ans:1 },
     { q:"Composite key consists of?", options:["One column","Two or more columns","Only foreign keys","Only primary keys"], ans:1 },
     { q:"What is a trigger in SQL?", options:["A type of query","Auto-executed procedure on DB events","A stored index","A join type"], ans:1 },
+    // ── CODE questions ──
+    { q:"What is the output of this SQL?\nSELECT COUNT(*) FROM students WHERE age > 18;", options:["Returns all students","Returns number of students older than 18","Returns students aged 18","Error"], ans:1 },
+    { q:"What does this query do?\nSELECT name, salary FROM emp ORDER BY salary DESC LIMIT 1;", options:["Returns all employees","Returns employee with lowest salary","Returns employee with highest salary","Returns count of employees"], ans:2 },
+    { q:"What is wrong with this SQL?\nSELECT * FROM orders WHERE ORDER BY id;", options:["Missing semicolon","WHERE clause has no condition","Missing column in SELECT","Nothing is wrong"], ans:1 },
+    { q:"What does this return?\nSELECT DISTINCT dept FROM employees;", options:["All employees with dept","Only unique department names","Count of departments","Null values only"], ans:1 },
+    { q:"What does this query do?\nUPDATE students SET grade='A' WHERE marks >= 90;", options:["Deletes students with marks >= 90","Inserts new students","Updates grade to 'A' for students scoring 90+","Creates a new column"], ans:2 },
+    { q:"Identify the error:\nINSERT INTO students VALUES (1, 'Raj', 20)\nINSERT INTO students VALUES (2, 'Priya', 22);", options:["Duplicate primary key","Missing semicolon after first INSERT","Wrong column order","No error"], ans:1 },
+    { q:"What will this query return?\nSELECT name FROM students WHERE name LIKE 'A%';", options:["Names ending with A","Names containing A","Names starting with A","All names"], ans:2 },
+    { q:"What does this JOIN do?\nSELECT a.name, b.dept FROM emp a INNER JOIN dept b ON a.dept_id = b.id;", options:["Returns all rows from emp","Returns only matching rows from both tables","Returns all rows from dept","Returns unmatched rows only"], ans:1 },
+    { q:"What is the output of:\nSELECT 5 + NULL;", options:["5","NULL","0","Error"], ans:1 },
+    { q:"What does this do?\nCREATE INDEX idx_name ON students(name);", options:["Creates a new table","Creates an index on 'name' column for faster search","Deletes the name column","Adds a primary key"], ans:1 },
+    { q:"What does GROUP BY do here?\nSELECT dept, COUNT(*) FROM emp GROUP BY dept;", options:["Sorts by dept","Counts all employees","Counts employees per department","Filters departments"], ans:2 },
+    { q:"What is the issue?\nSELECT name FROM students HAVING marks > 50;", options:["HAVING used without GROUP BY","Wrong column name","Missing WHERE","No issue"], ans:0 },
+    { q:"What does this subquery return?\nSELECT name FROM emp WHERE salary = (SELECT MAX(salary) FROM emp);", options:["All employees","Employee with minimum salary","Employee(s) with maximum salary","Nothing"], ans:2 },
+    { q:"What does this trigger do?\nCREATE TRIGGER before_insert BEFORE INSERT ON orders FOR EACH ROW SET NEW.status='pending';", options:["Deletes each inserted row","Sets status to 'pending' before each insert","Fires after insert","Updates all rows"], ans:1 },
+    { q:"What does ROLLBACK do in this transaction?\nBEGIN;\nUPDATE acc SET bal=bal-500 WHERE id=1;\nROLLBACK;", options:["Saves the update permanently","Cancels the update and reverts changes","Deletes the account","Commits the transaction"], ans:1 },
   ],
 
-  // ─────────────── OOPS (45 questions) ───────────────
+  // ─────────────── OOPS (45 + 15 code questions) ───────────────
   OOPS: [
     { q:"OOP stands for?", options:["Object Oriented Programming","Ordered Object Processing","Object Oriented Protocol","None"], ans:0 },
     { q:"Which concept allows class to inherit from another?", options:["Encapsulation","Polymorphism","Inheritance","Abstraction"], ans:2 },
@@ -96,9 +112,25 @@ const questions = {
     { q:"Cohesion in OOP refers to?", options:["How strongly modules depend on each other","How focused a class is on a single task","Inheritance depth","None"], ans:1 },
     { q:"Coupling in OOP refers to?", options:["Focus of a class","Dependency between modules","Inheritance level","None"], ans:1 },
     { q:"SOLID stands for?", options:["5 OOP design principles","4 OOP pillars","A Java framework","None"], ans:0 },
+    // ── CODE questions ──
+    { q:"What is the output?\nclass A {\n  void show() { System.out.println(\"A\"); }\n}\nclass B extends A {\n  void show() { System.out.println(\"B\"); }\n}\nA obj = new B(); obj.show();", options:["A","B","Error","None"], ans:1 },
+    { q:"What concept is shown?\nclass Animal { void sound(){} }\nclass Dog extends Animal {\n  void sound(){ System.out.println(\"Bark\"); }\n}", options:["Overloading","Overriding","Encapsulation","Abstraction"], ans:1 },
+    { q:"What will this print?\nclass Test {\n  static int x = 5;\n}\nSystem.out.println(Test.x);", options:["Error - need object","5","0","null"], ans:1 },
+    { q:"What is the error here?\nclass Animal {\n  abstract void sound();\n}", options:["No error","Class must be abstract to have abstract method","Missing return type","Missing constructor"], ans:1 },
+    { q:"What does 'super()' do in this code?\nclass B extends A {\n  B() { super(); System.out.println(\"B\"); }\n}", options:["Calls B's constructor","Calls A's constructor first, then prints B","Skips A's constructor","Error"], ans:1 },
+    { q:"Identify the concept:\nclass Calc {\n  int add(int a, int b){ return a+b; }\n  double add(double a, double b){ return a+b; }\n}", options:["Overriding","Inheritance","Overloading","Abstraction"], ans:2 },
+    { q:"What is the output?\nclass A {\n  A() { System.out.println(\"Constructor A\"); }\n}\nnew A();", options:["Nothing","Constructor A","Error","null"], ans:1 },
+    { q:"What is wrong?\ninterface I {\n  int x = 10;\n  void show();\n}\nclass C implements I {}", options:["Interface variable issue","Class C must implement show()","Missing constructor","No error"], ans:1 },
+    { q:"What concept does this show?\nprivate int age;\npublic int getAge(){ return age; }\npublic void setAge(int a){ age = a; }", options:["Inheritance","Polymorphism","Encapsulation","Abstraction"], ans:2 },
+    { q:"What is the output?\nclass A {\n  static void hello(){ System.out.println(\"Hello\"); }\n}\nA.hello();", options:["Error","Hello","null","Nothing"], ans:1 },
+    { q:"What is the output?\nString s1 = new String(\"hi\");\nString s2 = new String(\"hi\");\nSystem.out.println(s1 == s2);", options:["true","false","Error","null"], ans:1 },
+    { q:"What OOP concept is used here?\nabstract class Shape {\n  abstract double area();\n}\nclass Circle extends Shape {\n  double area(){ return 3.14*r*r; }\n}", options:["Encapsulation","Abstraction + Inheritance","Only Inheritance","Only Abstraction"], ans:1 },
+    { q:"What is the output?\nclass X {\n  int a = 10;\n  void show(){ System.out.println(this.a); }\n}\nnew X().show();", options:["Error","null","10","0"], ans:2 },
+    { q:"What is wrong with this?\nfinal class A {}\nclass B extends A {}", options:["A has no methods","Cannot extend a final class","B needs constructor","Nothing wrong"], ans:1 },
+    { q:"What does this demonstrate?\nList<Animal> list = new ArrayList<>();\nlist.add(new Dog());\nlist.add(new Cat());\nfor(Animal a : list) a.sound();", options:["Encapsulation","Compile-time polymorphism","Runtime polymorphism","Abstraction only"], ans:2 },
   ],
 
-  // ─────────────── PYTHON (45 questions) ───────────────
+  // ─────────────── PYTHON (45 + 15 code questions) ───────────────
   PYTHON: [
     { q:"Python is a __ language.", options:["Compiled","Interpreted","Assembly","Machine"], ans:1 },
     { q:"Single-line comment in Python?", options:["//","/* */","#","--"], ans:2 },
@@ -145,9 +177,25 @@ const questions = {
     { q:"Which exception is raised for wrong index?", options:["ValueError","KeyError","IndexError","TypeError"], ans:2 },
     { q:"What is *args in Python?", options:["Pointer argument","Variable number of positional arguments","Keyword argument","None"], ans:1 },
     { q:"What is **kwargs in Python?", options:["Pointer argument","Variable number of keyword arguments","Positional arguments","None"], ans:1 },
+    // ── CODE questions ──
+    { q:"What is the output?\nx = [1, 2, 3]\nprint(x[-1])", options:["1","3","Error","-1"], ans:1 },
+    { q:"What is the output?\nprint(list(range(2, 10, 3)))", options:["[2,5,8]","[2,4,6,8]","[3,6,9]","[2,5,8,11]"], ans:0 },
+    { q:"What does this print?\nd = {'a':1, 'b':2}\nd['c'] = 3\nprint(len(d))", options:["2","3","Error","4"], ans:1 },
+    { q:"What is the output?\ndef f(x, y=10):\n    return x + y\nprint(f(5))", options:["5","10","15","Error"], ans:2 },
+    { q:"What is the output?\nprint([x**2 for x in range(4)])", options:["[1,4,9,16]","[0,1,4,9]","[0,2,4,6]","Error"], ans:1 },
+    { q:"What does this code do?\ntry:\n    x = 1/0\nexcept ZeroDivisionError:\n    print(\"Cannot divide\")", options:["Crashes","Prints: Cannot divide","Prints: 0","Prints: Error"], ans:1 },
+    { q:"What is the output?\na = (1, 2, 3)\na[0] = 10\nprint(a)", options:["(10, 2, 3)","Error - tuple is immutable","(1, 2, 3)","None"], ans:1 },
+    { q:"What does this print?\ndef gen():\n    yield 1\n    yield 2\ng = gen()\nprint(next(g))", options:["1","2","[1,2]","Error"], ans:0 },
+    { q:"What is the output?\ns = 'Hello'\nprint(s[::-1])", options:["Hello","olleH","Error","lleH"], ans:1 },
+    { q:"What does this return?\nresult = list(map(lambda x: x*2, [1,2,3]))\nprint(result)", options:["[1,2,3]","[2,4,6]","[1,4,9]","Error"], ans:1 },
+    { q:"What is the output?\nx = 5\nprint('Even' if x % 2 == 0 else 'Odd')", options:["Even","Odd","Error","None"], ans:1 },
+    { q:"What is the output?\nclass Dog:\n    def __init__(self, name):\n        self.name = name\nd = Dog('Rex')\nprint(d.name)", options:["Error","Dog","Rex","None"], ans:2 },
+    { q:"What does this print?\na = [1, 2, 3]\nb = a\nb.append(4)\nprint(a)", options:["[1,2,3]","[1,2,3,4]","Error","[4]"], ans:1 },
+    { q:"What is the output?\nprint(type(lambda x: x))", options:["<class 'function'>","<class 'lambda'>","<class 'method'>","Error"], ans:0 },
+    { q:"What does this return?\nwords = ['hi','hello','hey']\nresult = list(filter(lambda w: len(w) > 2, words))\nprint(result)", options:["['hi']","['hello','hey']","['hi','hello','hey']","Error"], ans:1 },
   ],
 
-  // ─────────────── C (45 questions) ───────────────
+  // ─────────────── C (45 + 15 code questions) ───────────────
   C: [
     { q:"C language developed by?", options:["Dennis Ritchie","James Gosling","Bjarne Stroustrup","Guido van Rossum"], ans:0 },
     { q:"Header file for I/O in C?", options:["<stdlib.h>","<string.h>","<stdio.h>","<math.h>"], ans:2 },
@@ -194,9 +242,25 @@ const questions = {
     { q:"What is a segmentation fault?", options:["Syntax error","Accessing invalid memory location","Logic error","Compilation error"], ans:1 },
     { q:"Which is a ternary operator in C?", options:["&&","?:","||","!"], ans:1 },
     { q:"What does fclose() do?", options:["Opens file","Closes a file","Reads file","Deletes file"], ans:1 },
+    // ── CODE questions ──
+    { q:"What is the output?\nint x = 5;\nprintf(\"%d\", x++);", options:["6","5","Error","4"], ans:1 },
+    { q:"What is the output?\nint a = 10, b = 3;\nprintf(\"%d\", a % b);", options:["3","1","0","3.33"], ans:1 },
+    { q:"What does this print?\nint i;\nfor(i=0; i<3; i++)\n  printf(\"%d \", i);", options:["1 2 3","0 1 2","0 1 2 3","Error"], ans:1 },
+    { q:"What is the output?\nint a = 5;\nif(a > 3)\n  printf(\"Yes\");\nelse\n  printf(\"No\");", options:["No","Yes","Error","Nothing"], ans:1 },
+    { q:"What is the output?\nchar s[] = \"Hello\";\nprintf(\"%d\", strlen(s));", options:["6","5","4","Error"], ans:1 },
+    { q:"What does this do?\nint *p;\nint x = 10;\np = &x;\nprintf(\"%d\", *p);", options:["Address of x","10","Error","0"], ans:1 },
+    { q:"What is wrong here?\nint arr[5];\narr[5] = 99;", options:["Wrong syntax","Array index out of bounds (undefined behavior)","Missing semicolon","No error"], ans:1 },
+    { q:"What is the output?\nint x = 1;\nswitch(x){\n  case 1: printf(\"One\");\n  case 2: printf(\"Two\");\n}", options:["One","OneTwo","Two","Error"], ans:1 },
+    { q:"What does this print?\nint x = 10;\ndo {\n  printf(\"%d \", x);\n  x--;\n} while(x > 8);", options:["10 9","10 9 8","10","8 9 10"], ans:0 },
+    { q:"What is the output?\n#define PI 3.14\nprintf(\"%.2f\", PI * 2);", options:["6.28","3.14","Error","6.00"], ans:0 },
+    { q:"What does this code do?\nint *p = malloc(sizeof(int));\n*p = 42;\nprintf(\"%d\", *p);\nfree(p);", options:["Error","Prints 42 and frees memory","Prints address","Memory leak"], ans:1 },
+    { q:"What is the output?\nstruct Point { int x, y; };\nstruct Point p = {3, 4};\nprintf(\"%d\", p.x + p.y);", options:["3","4","7","Error"], ans:2 },
+    { q:"What does this return?\nint fact(int n){\n  if(n==0) return 1;\n  return n * fact(n-1);\n}\nprintf(\"%d\", fact(4));", options:["4","16","24","Error"], ans:2 },
+    { q:"What is the output?\nint a=5, b=10;\nprintf(\"%d\", a>b ? a : b);", options:["5","10","Error","true"], ans:1 },
+    { q:"What will this print?\nchar str1[10]=\"Hello\";\nchar str2[10]=\"World\";\nstrcat(str1, str2);\nprintf(\"%s\", str1);", options:["Hello","World","HelloWorld","Error"], ans:2 },
   ],
 
-  // ─────────────── COA (45 questions) ───────────────
+  // ─────────────── COA (45 + 15 code questions) ───────────────
   COA: [
     { q:"COA stands for?", options:["Computer Organized Architecture","Computer Organization and Architecture","Central Operating Algorithm","None"], ans:1 },
     { q:"Smallest unit of data?", options:["Byte","Nibble","Bit","Word"], ans:2 },
@@ -243,9 +307,25 @@ const questions = {
     { q:"What does the stack pointer point to?", options:["Bottom of stack","Top of current stack","Heap memory","None"], ans:1 },
     { q:"Decimal equivalent of hex F?", options:["14","15","16","17"], ans:1 },
     { q:"What is an opcode?", options:["Data value","Portion of instruction specifying operation","Register value","Memory address"], ans:1 },
+    // ── CODE questions ──
+    { q:"Convert binary 1101 to decimal.", options:["11","12","13","14"], ans:2 },
+    { q:"Convert decimal 25 to binary.", options:["11001","10011","11010","10101"], ans:0 },
+    { q:"What is the 2's complement of 0101 (4-bit)?", options:["1010","1011","0101","1101"], ans:1 },
+    { q:"What does AND of 1010 and 1100 give?", options:["1110","1000","0110","1010"], ans:1 },
+    { q:"What does OR of 1010 and 0101 give?", options:["0000","1111","1010","0101"], ans:1 },
+    { q:"What is the output of XOR on 1100 and 1010?", options:["1110","0110","1000","0010"], ans:1 },
+    { q:"Hexadecimal 1F in decimal is?", options:["30","31","15","16"], ans:1 },
+    { q:"How many bits are needed to represent decimal 15?", options:["2","3","4","5"], ans:2 },
+    { q:"In a 4-stage pipeline, if each stage takes 5ns, throughput is?", options:["5ns per instruction","1 instruction per 5ns","4 instructions per 5ns","20ns per instruction"], ans:1 },
+    { q:"Binary addition: 1011 + 0101 = ?", options:["1111","10000","1110","10010"], ans:1 },
+    { q:"What does NOT of 1010 give (4-bit)?", options:["0101","1010","1111","0000"], ans:0 },
+    { q:"If PC = 100 and instruction size = 4 bytes, next PC = ?", options:["100","101","104","108"], ans:2 },
+    { q:"Convert hex A3 to decimal.", options:["153","163","143","173"], ans:1 },
+    { q:"In floating point, the sign bit '1' means?", options:["Positive number","Negative number","Zero","Infinity"], ans:1 },
+    { q:"Cache hit ratio = 0.9, cache time = 10ns, main memory = 100ns. Average access time = ?", options:["10ns","19ns","55ns","100ns"], ans:1 },
   ],
 
-  // ─────────────── DSA (45 questions) ───────────────
+  // ─────────────── DSA (45 + 15 code questions) ───────────────
   DSA: [
     { q:"DSA stands for?", options:["Data Structures and Algorithms","Data Storage Algorithms","Dynamic Structural Array","None"], ans:0 },
     { q:"Which follows LIFO?", options:["Queue","Stack","Linked List","Array"], ans:1 },
@@ -292,6 +372,22 @@ const questions = {
     { q:"What is a sentinel node?", options:["Head of list","Special dummy node used to simplify edge cases","Tail of list","None"], ans:1 },
     { q:"Time complexity of inserting in sorted array?", options:["O(1)","O(log n)","O(n)","O(n²)"], ans:2 },
     { q:"What is topological sort?", options:["Sorting numbers","Ordering nodes in a DAG by dependencies","Sorting strings","None"], ans:1 },
+    // ── CODE questions ──
+    { q:"What is the output of this stack operation?\npush(1), push(2), push(3), pop()\nTop element after pop?", options:["1","2","3","Empty"], ans:1 },
+    { q:"Binary search on [1,3,5,7,9], target=7. Which index is returned?", options:["2","3","4","Not found"], ans:1 },
+    { q:"What is the inorder traversal of BST with insert order: 5, 3, 7, 1, 4?", options:["5 3 7 1 4","1 3 4 5 7","5 7 3 1 4","7 5 3 4 1"], ans:1 },
+    { q:"Trace bubble sort on [4,2,5,1] — after 1st pass?", options:["[2,4,1,5]","[1,2,4,5]","[4,2,1,5]","[2,4,5,1]"], ans:0 },
+    { q:"Queue: enqueue(A), enqueue(B), enqueue(C), dequeue(). Front element?", options:["A","B","C","Empty"], ans:1 },
+    { q:"What does this return for linked list [1->2->3->NULL]?\nReverse the list. Head value?", options:["1","2","3","NULL"], ans:2 },
+    { q:"Given array [3,1,4,1,5], after one pass of selection sort?", options:["[1,3,4,1,5]","[1,1,3,4,5]","[3,1,1,4,5]","[1,3,1,4,5]"], ans:0 },
+    { q:"Fibonacci(6) using recursion returns?", options:["6","7","8","13"], ans:2 },
+    { q:"What is the height of a complete binary tree with 7 nodes?", options:["2","3","4","7"], ans:0 },
+    { q:"What does DFS on graph [A-B, A-C, B-D] starting from A visit first after A?", options:["B or C (depends on order)","D","C only","None"], ans:0 },
+    { q:"Min-heap: insert 10, 5, 3. Root is?", options:["10","5","3","None"], ans:2 },
+    { q:"Hash function h(x) = x % 5. Where does 13 go?", options:["2","3","4","1"], ans:1 },
+    { q:"Merge sort splits [8,3,5,1] into?", options:["[8,3] and [5,1]","[8] and [3,5,1]","[8,3,5] and [1]","[1,3,5,8]"], ans:0 },
+    { q:"Quick sort: pivot = last element of [4,2,7,1,5]. After partition, pivot 5 is at index?", options:["2","3","4","0"], ans:1 },
+    { q:"What is the time complexity of searching in a hash table (average case)?", options:["O(n)","O(log n)","O(1)","O(n²)"], ans:2 },
   ],
 }
 export default questions

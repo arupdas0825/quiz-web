@@ -134,7 +134,7 @@ export default function WelcomePage({ navigate, history }) {
           {[
             { val: '25', lbl: 'Questions', color: '#1a7cdc' },
             { val: '25', lbl: 'Marks',     color: '#14a050' },
-            { val: '30', lbl: 'Minutes',   color: '#c87800' },
+            { val: '10', lbl: 'Minutes',   color: '#c87800' },
             { val: '6',  lbl: 'Subjects',  color: '#8800cc' },
           ].map(c => (
             <div key={c.lbl} className="glass" style={{

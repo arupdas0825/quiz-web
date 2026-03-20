@@ -131,7 +131,7 @@ export default function DashboardPage({ navigate, student, setSubject, history }
               { val:'6',  lbl:'Total Subjects',   color:'#1a7cdc', icon:'✦' },
               { val:'25', lbl:'Questions / Exam', color:'#14a050', icon:'?' },
               { val:'25', lbl:'Total Marks',      color:'#c87800', icon:'★' },
-              { val:'30', lbl:'Minutes / Exam',   color:'#9900cc', icon:'⏱' },
+              { val:'10', lbl:'Minutes / Exam',   color:'#9900cc', icon:'⏱' },
             ].map(c => (
               <div key={c.lbl} style={{
                 background:`linear-gradient(135deg,${c.color}cc,${c.color}55)`,
@@ -177,7 +177,7 @@ export default function DashboardPage({ navigate, student, setSubject, history }
                 subject={s}
                 onClick={() => {
                   if (window.confirm(
-                    `Start exam: ${s.name}\n25 Questions · 25 Marks · 30 Minutes`
+                    `Start exam: ${s.name}\n25 Questions · 25 Marks · 10 Minutes`
                   )) {
                     setSubject(s.code)
                     navigate('quiz')
