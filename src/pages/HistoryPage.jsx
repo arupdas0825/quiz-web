@@ -1,50 +1,21 @@
+import React from 'react';
+import HeaderNavigation from '../components/HeaderNavigation';
+
 export default function HistoryPage({ navigate, history }) {
   return (
     <div style={{
       minHeight: '100vh',
       background: 'linear-gradient(135deg,#080f28 0%,#140830 100%)',
-      fontFamily: 'Arial,sans-serif',
+      fontFamily: 'Inter, Arial, sans-serif',
       display: 'flex', flexDirection: 'column'
     }}>
 
-      {/* NAVBAR */}
-      <div style={{
-        background: 'rgba(0,0,0,0.40)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(255,255,255,0.10)',
-        padding: '14px 28px',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-      }}>
-        <span style={{
-          color: '#6eb4ff', fontWeight: 'bold', fontSize: 16
-        }}>
-          📊 &nbsp;Score History
-        </span>
-
-        {/* ── Navigation Buttons ── */}
-        <div style={{ display: 'flex', gap: 10 }}>
-          <button onClick={() => navigate('dashboard')}
-            style={{
-              background: 'rgba(100,160,255,0.15)',
-              padding: '7px 18px', fontSize: 13,
-              border: '1px solid rgba(100,160,255,0.35)',
-              borderRadius: 8, color: '#6eb4ff',
-              cursor: 'pointer', fontWeight: 'bold'
-            }}>
-            ← Dashboard
-          </button>
-          <button onClick={() => navigate('welcome')}
-            style={{
-              background: 'rgba(255,255,255,0.10)',
-              padding: '7px 18px', fontSize: 13,
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: 8, color: '#fff',
-              cursor: 'pointer'
-            }}>
-            🏠 Home
-          </button>
-        </div>
-      </div>
+      <HeaderNavigation 
+        title="Score History" 
+        navigate={navigate} 
+        showBack={true} 
+        showDashboard={true} 
+      />
 
       {/* CONTENT */}
       <div style={{

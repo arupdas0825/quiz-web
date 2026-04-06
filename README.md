@@ -5,11 +5,11 @@
 ![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![CSS3](https://img.shields.io/badge/CSS3-Glassmorphism-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-SaaS_Aesthetic-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 **A modern, fully responsive Online Examination System built with React.js**  
-*Featuring Glassmorphism UI, animated backgrounds, randomized questions, real-time countdown timer, and code-based MCQs.*
+*Featuring Glassmorphism UI, animated backgrounds, randomized questions, and real-time countdown timer.*
 
 [🌐 Live Demo](#) &nbsp;·&nbsp; [📸 Screenshots](#-screenshots) &nbsp;·&nbsp; [🚀 Getting Started](#-getting-started) &nbsp;·&nbsp; [✨ Features](#-features)
 
@@ -17,28 +17,11 @@
 
 ---
 
-## 📌 Table of Contents
-
-- [About the Project](#-about-the-project)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Subjects & Questions](#-subjects--questions)
-- [Grading System](#-grading-system)
-- [Screenshots](#-screenshots)
-- [Getting Started](#-getting-started)
-- [Deployment](#-deployment)
-- [Author](#-author)
-
----
-
-## 📖 About the Project
+## 📖 Project Overview
 
 The **Online Examination System** is a web-based quiz application developed as an academic project. It allows students to take multiple-choice exams across **6 core Computer Science subjects**, automatically calculates grades and grade points, and maintains a session-based score history.
 
 The project is built using **React.js** with a beautiful **Glassmorphism / Liquidmorphism** UI design, featuring animated gradient backgrounds and fully responsive layouts for both desktop and mobile devices.
-
-Each subject now includes **15 dedicated code-based questions** (output prediction, error finding, concept identification from code snippets) in addition to theory MCQs — making the exam more practical and skill-oriented.
 
 > 💡 This project was also implemented as a **Java Swing desktop application** (separate repository) and later upgraded to a full web application for broader accessibility.
 
@@ -51,11 +34,9 @@ Each subject now includes **15 dedicated code-based questions** (output predicti
 | 🎨 **Glassmorphism UI** | Modern frosted-glass design with animated gradient backgrounds |
 | 📱 **Fully Responsive** | Works seamlessly on mobile, tablet, and desktop |
 | 🔀 **Question Shuffle** | Questions and answer options are randomized on every attempt |
-| ⏱️ **Countdown Timer** | **10-minute** timer per exam with color-coded urgency indicator |
+| ⏱️ **Countdown Timer** | 10-minute timer per exam with color-coded urgency indicator |
 | ⬅️ **Previous / Next** | Navigate back and forth between questions during the exam |
-| 💻 **Code-Based MCQs** | 15 code/output questions per subject for practical skill testing |
 | 📊 **Score History** | Session-based history with best score and average tracking |
-| 🔙 **Smart Navigation** | History page has dedicated **← Dashboard** and **🏠 Home** buttons |
 | 🏆 **Grade Calculation** | Automatic grade point calculation using a standard grading scale |
 | ✋ **Quit Option** | Students can exit the exam anytime with confirmation |
 | 🚫 **No Login Required** | Students fill basic details and directly start the exam |
@@ -85,8 +66,7 @@ quiz-web/
 │
 ├── src/
 │   ├── data/
-│   │   └── questions.js          # 60 questions × 6 subjects = 360 total questions
-│   │                             # (45 theory + 15 code-based per subject)
+│   │   └── questions.js          # 45 questions × 6 subjects = 270 total questions
 │   │
 │   ├── pages/
 │   │   ├── WelcomePage.jsx       # Landing page with animated background
@@ -94,7 +74,7 @@ quiz-web/
 │   │   ├── DashboardPage.jsx     # Dashboard with sidebar + subject cards
 │   │   ├── QuizPage.jsx          # Exam screen with timer, navigation, options
 │   │   ├── ResultPage.jsx        # Score, grade, grade point display
-│   │   └── HistoryPage.jsx       # Session score history with Dashboard back button
+│   │   └── HistoryPage.jsx       # Session score history table
 │   │
 │   ├── App.jsx                   # Root component with page state management
 │   ├── main.jsx                  # React DOM entry point
@@ -110,81 +90,61 @@ quiz-web/
 
 ## 📚 Subjects & Questions
 
-The system covers **6 core Computer Science subjects** with **60 questions each** (360 total).  
-Each subject contains **45 theory MCQs** + **15 code-based MCQs**.  
-Each exam randomly picks **25 questions** with shuffled answer options.
+The system covers **6 core Computer Science subjects** with **45 questions each** (270 total). Each exam randomly picks **25 questions** with shuffled answer options.
 
-| # | Subject | Code | Theory Qs | Code Qs | Total |
-|---|---------|------|-----------|---------|-------|
-| 1 | Database Management System | `DBMS` | 45 | 15 | **60** |
-| 2 | Object Oriented Programming | `OOPS` | 45 | 15 | **60** |
-| 3 | Python Programming | `PYTHON` | 45 | 15 | **60** |
-| 4 | C Programming | `C` | 45 | 15 | **60** |
-| 5 | Computer Organization & Architecture | `COA` | 45 | 15 | **60** |
-| 6 | Data Structures & Algorithms | `DSA` | 45 | 15 | **60** |
+| # | Subject | Code | Questions |
+|---|---------|------|-----------|
+| 1 | Database Management System | `DBMS` | 45 |
+| 2 | Object Oriented Programming | `OOPS` | 45 |
+| 3 | Python Programming | `PYTHON` | 45 |
+| 4 | C Programming | `C` | 45 |
+| 5 | Computer Organization & Architecture | `COA` | 45 |
+| 6 | Data Structures & Algorithms | `DSA` | 45 |
 
-**Total: 360 questions across all subjects**
-
-### 💻 Code-Based Question Types (per subject)
-
-| Subject | Code Question Focus |
-|---------|-------------------|
-| **DBMS** | SQL query output, error identification, JOIN/subquery logic |
-| **OOPS** | Java code output prediction, overriding vs overloading, concept identification |
-| **PYTHON** | Output tracing, list/dict/lambda/generator code, exception handling |
-| **C** | printf output, pointer dereference, loop trace, struct/recursion |
-| **COA** | Binary/hex conversion, 2's complement, logic gate truth tables, cache math |
-| **DSA** | Stack/queue operation trace, sort pass simulation, BST traversal, complexity |
+**Total:** 270 questions across all subjects
 
 ---
 
 ## 🏆 Grading System
 
-Each exam is out of **25 marks** (1 mark per correct answer, no negative marking).
+Each exam comprises **25 marks** (1 mark per correct answer, no negative impact). Passing threshold is dynamically determined.
 
-| Marks (out of 25) | Percentage | Grade | Grade Point |
-|-------------------|-----------|-------|-------------|
-| 23 – 25 | 92% – 100% | **O** | 10 |
-| 20 – 22 | 80% – 91% | **A+** | 9 |
-| 17 – 19 | 68% – 79% | **A** | 8 |
-| 14 – 16 | 56% – 67% | **B+** | 7 |
-| 11 – 13 | 44% – 55% | **B** | 6 |
-| 8 – 10 | 32% – 43% | **C** | 5 |
-| 0 – 7 | 0% – 31% | **F** | 0 (Fail) |
+| Marks (out of 25) | Percentage | Grade | Grade Point | Status |
+|-------------------|-----------|-------|-------------|--------|
+| 23 – 25 | 92% – 100% | **O** | 10 | PASS |
+| 20 – 22 | 80% – 91% | **A+** | 9 | PASS |
+| 17 – 19 | 68% – 79% | **A** | 8 | PASS |
+| 14 – 16 | 56% – 67% | **B+** | 7 | PASS |
+| 11 – 13 | 44% – 55% | **B** | 6 | PASS |
+| 8 – 10 | 32% – 43% | **C** | 5 | PASS |
+| 0 – 7 | 0% – 31% | **F** | 0 | FAIL |
 
 ---
 
 ## 🖼️ Screenshots
 
-### 🏠 Welcome Page
-> Animated gradient background with subject chips and stat cards
-
-### 📋 Student Registration
-> Glassmorphism form card with animated liquid background
-
-### 📊 Dashboard
-> Sidebar navigation + colorful subject cards with hover effects
+### 🏠 Landing & Dashboard
+*(Placeholder for landing and SaaS subject grid dashboard screenshots)*
 
 ### 📝 Exam Screen
-> Progress bar, 10-minute countdown timer, glass option cards, Prev/Next navigation
+> Progress bar, countdown timer, glass option cards, Prev/Next navigation
 
-### 🏆 Result Page
-> Score bar, grade cards, grade point display
+### 🔎 Advanced Review System
+*(Placeholder for question filtering UI and correct/incorrect highlight states)*
 
 ### 📈 History Page
-> Session-based exam records with best score summary, **← Dashboard** and **🏠 Home** navigation buttons
+> Session-based exam records with best score summary
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Setup Instructions
 
 ### Prerequisites
-
-Make sure you have the following installed:
+Make sure you have installed:
 - [Node.js](https://nodejs.org/) (v18 or higher)
 - [npm](https://www.npmjs.com/) (v9 or higher)
 
-### Installation
+### Local Environment Initialization
 
 **1. Clone the repository:**
 ```bash
@@ -197,17 +157,14 @@ cd quiz-web
 npm install
 ```
 
-**3. Start the development server:**
+**3. Start the dev environment:**
 ```bash
 npm run dev
 ```
 
-**4. Open in browser:**
-```
-http://localhost:5173
-```
+**4. Browser Sandbox:** Navigate to `http://localhost:5173` to test the environment.
 
-### Build for Production
+### Production Environment Build
 
 ```bash
 npm run build
@@ -233,6 +190,19 @@ This project is deployed on **Vercel** for free hosting.
 6. Get your live URL instantly ✅
 ```
 
+**Option 2 — Vercel CLI:**
+```bash
+npm install -g vercel
+vercel login
+vercel --prod
+```
+
+### Other Platforms
+| Platform | Steps |
+|----------|-------|
+| **Netlify** | Drag & drop the `dist/` folder |
+| **GitHub Pages** | Use `gh-pages` package |
+
 ---
 
 ## 🔄 Application Flow
@@ -249,8 +219,6 @@ Quiz Screen           (25 Shuffled MCQs + 10 min Timer)
 Result Page           (Score + Grade + Grade Point)
     ↓
 Score History         (All session records)
-    ↕
-Dashboard             (← Dashboard back button in History)
 ```
 
 ---
@@ -258,7 +226,6 @@ Dashboard             (← Dashboard back button in History)
 ## 📋 Exam Rules
 
 - ✅ Each exam contains **25 randomly selected questions**
-- ✅ Questions drawn from a pool of **60 per subject** (45 theory + 15 code)
 - ✅ Answer options are **shuffled** for every attempt
 - ✅ **10 minutes** time limit per exam
 - ✅ Students can navigate **Previous / Next** freely
@@ -266,15 +233,14 @@ Dashboard             (← Dashboard back button in History)
 - ✅ **No negative marking**
 - ✅ Exam auto-submits when time runs out
 - ✅ Students can **quit** anytime with confirmation
-- ✅ History page allows returning directly to **Dashboard** or **Home**
 
 ---
 
 ## 👨‍💻 Author
 
-**Arup Das**
-- GitHub: [@arupdas0825](https://github.com/arupdas0825)
-- Email: dasarup0804@gmail.com
+**Your Name**
+- GitHub: [@your-username](https://github.com/your-username)
+- Email: your-email@example.com
 
 ---
 
@@ -289,14 +255,11 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 - This project was assigned as part of the **Java Programming** course curriculum
 - Originally built as a **Java Swing** desktop application, later upgraded to a **React.js** web application
 - Inspired by modern UI trends including **Glassmorphism** and **Liquidmorphism** design
-- Code-based MCQs added to improve practical assessment quality
 
 ---
 
 <div align="center">
-
 Made with ❤️ using React.js
-
-⭐ **Star this repository if you found it helpful!** ⭐
-
+<br />
+⭐ <b>Star this repository if you found it helpful!</b> ⭐
 </div>

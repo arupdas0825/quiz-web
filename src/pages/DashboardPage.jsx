@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { Database, Coffee, MonitorPlay, Settings, Cpu, Network, LayoutDashboard, History, Home, Info, BookOpen, Clock, Target } from 'lucide-react'
 
 const SUBJECTS = [
-  { code:'DBMS',   name:'Database Management System', color:'#1a6cd4', icon:'🗄️'  },
-  { code:'OOPS',   name:'Object Oriented Programming', color:'#7800b8', icon:'☕'  },
-  { code:'PYTHON', name:'Python Programming',          color:'#b48200', icon:'🐍'  },
-  { code:'C',      name:'C Programming',               color:'#c03010', icon:'⚙️'  },
-  { code:'COA',    name:'Computer Org. & Architecture',color:'#008878', icon:'💻'  },
-  { code:'DSA',    name:'Data Structures & Algorithms',color:'#b00050', icon:'🌳'  },
+  { code:'DBMS',   name:'Database Management System', color:'#3b82f6', icon: <Database size={28} /> },
+  { code:'OOPS',   name:'Object Oriented Programming', color:'#8b5cf6', icon: <Coffee size={28} /> },
+  { code:'PYTHON', name:'Python Programming',          color:'#eab308', icon: <MonitorPlay size={28} /> },
+  { code:'C',      name:'C Programming',               color:'#ef4444', icon: <Settings size={28} /> },
+  { code:'COA',    name:'Computer Org. & Architecture',color:'#10b981', icon: <Cpu size={28} /> },
+  { code:'DSA',    name:'Data Structures & Algorithms',color:'#ec4899', icon: <Network size={28} /> },
 ]
 
 export default function DashboardPage({ navigate, student, setSubject, history }) {
@@ -15,54 +16,60 @@ export default function DashboardPage({ navigate, student, setSubject, history }
   return (
     <div style={{
       minHeight:'100vh', display:'flex',
-      background:'linear-gradient(135deg,#0b1228 0%,#12082e 100%)',
-      fontFamily:'Arial,sans-serif'
+      background:'#050a18',
+      fontFamily:'Inter, sans-serif'
     }}>
 
       {/* ══ SIDEBAR ══ */}
       <div style={{
-        width:215, flexShrink:0,
-        background:'rgba(255,255,255,0.04)',
-        borderRight:'1px solid rgba(255,255,255,0.08)',
-        display:'flex', flexDirection:'column'
+        width: 260, flexShrink:0,
+        background: '#0a1024',
+        borderRight: '1px solid rgba(255,255,255,0.05)',
+        display: 'flex', flexDirection: 'column'
       }}>
 
         {/* Logo */}
         <div style={{
-          padding:'22px 20px 18px',
-          borderBottom:'1px solid rgba(255,255,255,0.08)'
+          padding: '24px',
+          borderBottom: '1px solid rgba(255,255,255,0.05)'
         }}>
-          <div style={{ color:'#6eb4ff', fontWeight:'bold', fontSize:16 }}>
-            ⬡ &nbsp;ExamPortal
+          <div style={{ color: '#e2e8f0', fontWeight: '700', fontSize: 18, display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)', padding: 6, borderRadius: 8}}>
+              <LayoutDashboard size={20} color="#fff" />
+            </div>
+            QuizPortal
           </div>
         </div>
 
         {/* Student Info */}
         <div style={{
-          padding:'16px 18px',
-          borderBottom:'1px solid rgba(255,255,255,0.08)'
+          padding: '24px',
+          borderBottom: '1px solid rgba(255,255,255,0.05)'
         }}>
-          <div style={{ color:'#fff', fontWeight:'bold', fontSize:13, marginBottom:5 }}>
-            👤 {student?.name}
+          <div style={{ color: '#f8fafc', fontWeight: '600', fontSize: 14, marginBottom: 8 }}>
+            Hello, {student?.name || 'Student'}
           </div>
           {[
-            '🎫 ' + student?.roll,
-            '📚 ' + student?.course,
-            '📅 Sem ' + student?.semester,
-          ].map(t => (
-            <div key={t} style={{
-              color:'rgba(160,175,215,0.85)',
-              fontSize:11, marginBottom:3
-            }}>{t}</div>
+            { label: student?.roll, icon: '🎫' },
+            { label: student?.course, icon: '📚' },
+            { label: `Sem ${student?.semester}`, icon: '📅' },
+          ].map((t, idx) => (
+            <div key={idx} style={{
+              color: '#94a3b8',
+              fontSize: 12, marginBottom: 6,
+              display: 'flex', gap: 8, alignItems: 'center'
+            }}>
+              <span style={{ fontSize: 14 }}>{t.icon}</span> {t.label}
+            </div>
           ))}
         </div>
 
         {/* Menu */}
-        <div style={{ flex:1 }}>
+        <div style={{ flex: 1, padding: '16px 12px' }}>
           {[
-            { icon:'⊞', label:'Dashboard',     key:'dashboard' },
-            { icon:'📊', label:'Score History', key:'history'   },
-            { icon:'🏠', label:'Home',          key:'home'      },
+            { icon: <LayoutDashboard size={18} />, label:'Dashboard',     key:'dashboard' },
+            { icon: <History size={18} />,         label:'Score History', key:'history'   },
+            { icon: <Home size={18} />,            label:'Home',          key:'home'      },
           ].map(m => (
             <div key={m.key}
               onClick={() => {
@@ -75,16 +82,16 @@ export default function DashboardPage({ navigate, student, setSubject, history }
               }}
               style={{
                 display:'flex', alignItems:'center', gap:12,
-                padding:'13px 20px', cursor:'pointer',
-                background: activePage===m.key
-                  ? 'rgba(100,160,255,0.12)' : 'transparent',
-                borderLeft: activePage===m.key
-                  ? '3px solid #6eb4ff' : '3px solid transparent',
-                color: activePage===m.key ? '#fff' : 'rgba(160,175,210,0.85)',
-                fontSize:13, fontWeight: activePage===m.key ? 'bold' : 'normal',
-                transition:'all 0.2s'
+                padding:'12px 16px', cursor:'pointer',
+                borderRadius: '8px',
+                background: activePage === m.key
+                  ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                color: activePage === m.key ? '#60a5fa' : '#94a3b8',
+                fontSize: 14, fontWeight: activePage === m.key ? '600' : '500',
+                transition:'all 0.2s ease',
+                marginBottom: 4
               }}>
-              <span>{m.icon}</span>
+              <span style={{ display: 'flex', alignItems: 'center' }}>{m.icon}</span>
               <span>{m.label}</span>
             </div>
           ))}
@@ -92,84 +99,95 @@ export default function DashboardPage({ navigate, student, setSubject, history }
 
         {/* Bottom */}
         <div style={{
-          padding:'14px 18px',
-          borderTop:'1px solid rgba(255,255,255,0.07)',
-          color:'rgba(130,145,185,0.7)', fontSize:11
+          padding: '20px 24px',
+          borderTop: '1px solid rgba(255,255,255,0.05)',
+          color: '#64748b', fontSize: 12,
+          display: 'flex', alignItems: 'center', gap: 10
         }}>
-          No negative marking<br/>Each answer = 1 mark
+          <Info size={16} />
+          <div>
+            <div>No negative marking</div>
+            <div style={{ marginTop: 2 }}>Each answer = 1 mark</div>
+          </div>
         </div>
       </div>
 
       {/* ══ MAIN AREA ══ */}
-      <div style={{ flex:1, display:'flex', flexDirection:'column', overflow:'auto' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
 
         {/* Top Bar */}
         <div style={{
-          padding:'16px 28px',
-          background:'rgba(255,255,255,0.03)',
-          borderBottom:'1px solid rgba(255,255,255,0.07)',
-          display:'flex', justifyContent:'space-between', alignItems:'center'
+          padding: '24px 40px',
+          background: 'rgba(10, 16, 36, 0.6)',
+          backdropFilter: 'blur(10px)',
+          borderBottom: '1px solid rgba(255,255,255,0.05)',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center'
         }}>
-          <span style={{ color:'#fff', fontWeight:'bold', fontSize:18 }}>
-            ⊞ &nbsp;Dashboard
+          <span style={{ color: '#f1f5f9', fontWeight: '600', fontSize: 20 }}>
+            Dashboard
           </span>
-          <span style={{ color:'rgba(140,155,195,0.8)', fontSize:12 }}>
-            Today: {new Date().toDateString()}
+          <span style={{ color: '#94a3b8', fontSize: 14, background: '#1e293b', padding: '6px 12px', borderRadius: 20 }}>
+            {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </span>
         </div>
 
         {/* Content */}
-        <div style={{ padding:'24px 28px', flex:1 }}>
+        <div style={{ padding: '32px 40px', flex: 1 }}>
 
           {/* Stat Cards */}
           <div style={{
-            display:'grid',
-            gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))',
-            gap:14, marginBottom:28
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, minmax(140px, 1fr))',
+            gap: 20, marginBottom: 36
           }}>
             {[
-              { val:'6',  lbl:'Total Subjects',   color:'#1a7cdc', icon:'✦' },
-              { val:'25', lbl:'Questions / Exam', color:'#14a050', icon:'?' },
-              { val:'25', lbl:'Total Marks',      color:'#c87800', icon:'★' },
-              { val:'10', lbl:'Minutes / Exam',   color:'#9900cc', icon:'⏱' },
+              { val: '6',  lbl: 'Subjects',       color: '#3b82f6', icon: <BookOpen size={24} /> },
+              { val: '25', lbl: 'Questions/Exam', color: '#10b981', icon: <Target size={24} /> },
+              { val: '25', lbl: 'Total Marks',    color: '#eab308', icon: <Info size={24} /> },
+              { val: '10', lbl: 'Minutes/Exam',   color: '#8b5cf6', icon: <Clock size={24} /> },
             ].map(c => (
               <div key={c.lbl} style={{
-                background:`linear-gradient(135deg,${c.color}cc,${c.color}55)`,
-                borderRadius:16, padding:'16px 18px',
-                display:'flex', justifyContent:'space-between',
-                alignItems:'center'
+                background: '#111827',
+                border: '1px solid rgba(255,255,255,0.05)',
+                borderRadius: 16, padding: '20px',
+                display: 'flex', justifyContent: 'space-between',
+                alignItems: 'center', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
               }}>
                 <div>
                   <div style={{
-                    color:'#fff', fontSize:30,
-                    fontWeight:'bold', lineHeight:1
+                    color: '#f8fafc', fontSize: 28,
+                    fontWeight: '700', lineHeight: 1
                   }}>{c.val}</div>
                   <div style={{
-                    color:'rgba(220,230,255,0.85)',
-                    fontSize:11, marginTop:5
+                    color: '#94a3b8',
+                    fontSize: 13, marginTop: 6, fontWeight: '500'
                   }}>{c.lbl}</div>
                 </div>
                 <div style={{
-                  fontSize:28,
-                  color:'rgba(255,255,255,0.25)'
-                }}>{c.icon}</div>
+                  background: `${c.color}15`,
+                  color: c.color,
+                  padding: 12,
+                  borderRadius: 12
+                }}>
+                  {c.icon}
+                </div>
               </div>
             ))}
           </div>
 
           {/* Subject Section Label */}
           <div style={{
-            color:'rgba(170,185,225,0.9)',
-            fontWeight:'bold', fontSize:15, marginBottom:14
+            color: '#e2e8f0',
+            fontWeight: '600', fontSize: 18, marginBottom: 20
           }}>
             Select a Subject to Start Exam
           </div>
 
           {/* Subject Cards Grid */}
           <div style={{
-            display:'grid',
-            gridTemplateColumns:'repeat(auto-fill,minmax(240px,1fr))',
-            gap:14
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+            gap: 20
           }}>
             {SUBJECTS.map(s => (
               <SubjectCard
@@ -179,8 +197,9 @@ export default function DashboardPage({ navigate, student, setSubject, history }
                   if (window.confirm(
                     `Start exam: ${s.name}\n25 Questions · 25 Marks · 10 Minutes`
                   )) {
-                    setSubject(s.code)
-                    navigate('quiz')
+                    localStorage.removeItem('examState');
+                    setSubject(s.code);
+                    navigate('quiz');
                   }
                 }}
               />
@@ -200,45 +219,56 @@ function SubjectCard({ subject, onClick }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered
-          ? `linear-gradient(135deg,${subject.color}ee,${subject.color}99)`
-          : `linear-gradient(135deg,${subject.color}cc,${subject.color}66)`,
-        borderRadius:18, padding:'18px 20px',
-        cursor:'pointer',
+        background: hovered ? '#1e293b' : '#0f172a',
+        borderRadius: 16, padding: '24px',
+        cursor: 'pointer',
         border: hovered
-          ? '1.5px solid rgba(255,255,255,0.35)'
-          : '1.5px solid rgba(255,255,255,0.12)',
-        transform: hovered ? 'translateY(-3px)' : 'translateY(0)',
-        transition:'all 0.2s ease',
-        boxShadow: hovered ? '0 10px 30px rgba(0,0,0,0.35)' : 'none'
+          ? `1px solid ${subject.color}80`
+          : '1px solid rgba(255,255,255,0.05)',
+        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        boxShadow: hovered ? `0 12px 24px -10px ${subject.color}40` : '0 4px 6px -1px rgba(0,0,0,0.1)'
       }}>
 
       <div style={{
-        display:'flex', justifyContent:'space-between',
-        alignItems:'center', marginBottom:10
+        display: 'flex', justifyContent: 'space-between',
+        alignItems: 'center', marginBottom: 16
       }}>
-        <span style={{ fontSize:30 }}>{subject.icon}</span>
+        <div style={{
+          background: `${subject.color}15`,
+          color: subject.color,
+          padding: 12, borderRadius: 12
+        }}>
+          {subject.icon}
+        </div>
         <span style={{
-          color:'#fff', fontWeight:'bold', fontSize:20
+          color: '#f8fafc', fontWeight: '700', fontSize: 18,
+          background: 'rgba(255,255,255,0.05)', padding: '4px 10px', borderRadius: 8
         }}>{subject.code}</span>
       </div>
 
       <div style={{
-        color:'rgba(220,230,255,0.85)',
-        fontSize:11, marginBottom:8
+        color: '#cbd5e1',
+        fontSize: 15, fontWeight: '500', marginBottom: 16,
+        lineHeight: 1.4
       }}>{subject.name}</div>
 
       <div style={{
-        display:'flex', justifyContent:'space-between',
-        alignItems:'center'
+        display: 'flex', justifyContent: 'space-between',
+        alignItems: 'center',
+        borderTop: '1px solid rgba(255,255,255,0.05)',
+        paddingTop: 16
       }}>
         <span style={{
-          color:'rgba(200,215,255,0.7)', fontSize:11
+          color: '#94a3b8', fontSize: 12, fontWeight: '500'
         }}>25 Q · 25 Marks</span>
         <span style={{
-          color:'#fff', fontWeight:'bold', fontSize:12
+          color: hovered ? subject.color : '#cbd5e1', 
+          fontWeight: '600', fontSize: 13,
+          display: 'flex', alignItems: 'center', gap: 4,
+          transition: 'color 0.2s ease'
         }}>
-          {hovered ? 'Click to Start →' : 'Start Exam →'}
+          {hovered ? 'Start Exam' : 'Start'} &rarr;
         </span>
       </div>
     </div>
