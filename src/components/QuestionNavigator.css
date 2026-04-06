@@ -1,0 +1,115 @@
+/* QuestionNavigator.css */
+/* Drop this file into: src/components/QuestionNavigator.css */
+
+.qnav-panel {
+  width: 220px;
+  min-width: 200px;
+  background: #1a1d2e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: inherit;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Header ─────────────────────────────── */
+.qnav-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qnav-icon {
+  font-size: 16px;
+  color: #a0a8c0;
+}
+
+.qnav-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e0e4f0;
+  letter-spacing: 0.03em;
+}
+
+/* ── Grid ────────────────────────────────── */
+.qnav-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+/* ── Buttons ─────────────────────────────── */
+.qnav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.qnav-btn:hover {
+  transform: scale(1.15);
+  opacity: 0.9;
+}
+
+/* Not visited yet — neutral grey */
+.qnav-not-viewed {
+  background: #2e3248;
+  color: #9aa0b8;
+}
+
+/* Visited but NOT answered — red */
+.qnav-visited {
+  background: #e53935;
+  color: #fff;
+}
+
+/* Answered — green */
+.qnav-answered {
+  background: #2e7d32;
+  color: #fff;
+}
+
+/* Active question — bright ring */
+.qnav-active {
+  box-shadow: 0 0 0 2.5px #7c6af7, 0 0 10px rgba(124, 106, 247, 0.5);
+  transform: scale(1.1);
+}
+
+/* ── Legend ──────────────────────────────── */
+.qnav-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.qnav-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #9aa0b8;
+}
+
+.qnav-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-answered  { background: #2e7d32; }
+.dot-visited   { background: #e53935; }
+.dot-not-viewed { background: #2e3248; border: 1px solid #9aa0b8; }
