@@ -115,4 +115,51 @@ body {
   .logo-text {
     font-size: 18px;
   }
+}
+
+/* Mobile Sidebar Fixes */
+.sidebar-mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  background: #0a1024;
+  z-index: 50;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-right: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-mobile.open {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+}
+
+.lg-hidden-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-mobile {
+    position: static;
+    transform: translateX(0);
+  }
+  .sidebar-overlay {
+    display: none;
+  }
+  .lg-hidden-btn {
+    display: none !important;
+  }
 }

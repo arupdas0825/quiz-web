@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Database, Coffee, MonitorPlay, Settings, Cpu, Network, LayoutDashboard, History, Home, Info, BookOpen, Clock, Target } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { Database, Coffee, MonitorPlay, Settings, Cpu, Network, LayoutDashboard, History, Home, Info, BookOpen, Clock, Target, Menu, X } from 'lucide-react'
 
 const SUBJECTS = [
   { code:'DBMS',   name:'Database Management System', color:'#3b82f6', icon: <Database size={28} /> },
@@ -12,6 +12,13 @@ const SUBJECTS = [
 
 export default function DashboardPage({ navigate, student, setSubject, history }) {
   const [activePage, setActivePage] = useState('dashboard')
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+  // Prevent body scroll when sidebar is open on mobile
+  useEffect(() => {
+    document.body.style.overflow = isSidebarOpen ? 'hidden' : 'auto'
+    return () => { document.body.style.overflow = 'auto' }
+  }, [isSidebarOpen])
 
   return (
     <div style={{
@@ -20,13 +27,25 @@ export default function DashboardPage({ navigate, student, setSubject, history }
       fontFamily:'Inter, sans-serif'
     }}>
 
+      {/* ══ OVERLAY ══ */}
+      {isSidebarOpen && (
+        <div 
+          className="sidebar-overlay"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* ══ SIDEBAR ══ */}
-      <div style={{
-        width: 260, flexShrink:0,
-        background: '#0a1024',
-        borderRight: '1px solid rgba(255,255,255,0.05)',
-        display: 'flex', flexDirection: 'column'
-      }}>
+      <div className={`sidebar-mobile ${isSidebarOpen ? 'open' : ''}`}>
+        
+        {/* Close Button (Mobile Only) */}
+        <button
+          className="lg-hidden-btn"
+          onClick={() => setIsSidebarOpen(false)}
+          style={{ position: 'absolute', top: '16px', right: '16px', background: 'transparent', border: 'none', color: '#94a3b8', padding: '8px', cursor: 'pointer' }}
+        >
+          <X size={24} />
+        </button>
 
         {/* Logo */}
         <div style={{
@@ -113,7 +132,7 @@ export default function DashboardPage({ navigate, student, setSubject, history }
       </div>
 
       {/* ══ MAIN AREA ══ */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
+      <div className="main-content" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
 
         {/* Top Bar */}
         <div style={{
@@ -123,9 +142,18 @@ export default function DashboardPage({ navigate, student, setSubject, history }
           borderBottom: '1px solid rgba(255,255,255,0.05)',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center'
         }}>
-          <span style={{ color: '#f1f5f9', fontWeight: '600', fontSize: 20 }}>
-            Dashboard
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <button 
+              className="lg-hidden-btn"
+              onClick={() => setIsSidebarOpen(true)}
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '8px', borderRadius: '8px', cursor: 'pointer' }}
+            >
+              <Menu size={20} />
+            </button>
+            <span style={{ color: '#f1f5f9', fontWeight: '600', fontSize: 20 }}>
+              Dashboard
+            </span>
+          </div>
           <span style={{ color: '#94a3b8', fontSize: 14, background: '#1e293b', padding: '6px 12px', borderRadius: 20 }}>
             {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </span>
