@@ -239,11 +239,11 @@ Score History         (All session records mapped into cards)
 
 ---
 
-## 👨‍💻 Author
+## 👥 Contributors
 
-**Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
-- Email: your-email@example.com
+- **Arup Das** (Author)
+- **Aditya Bar**
+- **Rajarshi Lakshman**
 
 ---
 
