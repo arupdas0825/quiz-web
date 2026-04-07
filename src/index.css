@@ -82,3 +82,37 @@ body {
 .animate-fade {
   animation: fadeIn 0.5s ease forwards;
 }
+
+/* Logo Branding */
+.logo-container {
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+.logo-container:hover {
+  opacity: 0.9;
+}
+.logo-image {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+.logo-text {
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+.logo-text .logo-gradient {
+  background: linear-gradient(90deg, #60a5fa, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media (max-width: 768px) {
+  .logo-image {
+    width: 32px;
+    height: 32px;
+  }
+  .logo-text {
+    font-size: 18px;
+  }
+}

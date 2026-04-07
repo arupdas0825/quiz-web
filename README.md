@@ -1,4 +1,4 @@
-# 🎓 Online Examination System
+# 🎓 QuizPortal
 
 <div align="center">
 
@@ -19,11 +19,11 @@
 
 ## 📖 Project Overview
 
-The **Online Examination System** is a web-based quiz application developed as an academic project. It allows students to take multiple-choice exams across **6 core Computer Science subjects**, automatically calculates grades and grade points, and maintains a session-based score history.
+**QuizPortal** is a premium, production-ready web-based assessment application. It allows students to take multiple-choice exams across **6 core Computer Science subjects**, automatically calculates grades, provides an advanced review system, and issues dynamic certificates upon completion.
 
-The project is built using **React.js** with a beautiful **Glassmorphism / Liquidmorphism** UI design, featuring animated gradient backgrounds and fully responsive layouts for both desktop and mobile devices.
+The project is built using **React.js**, featuring a highly polished **SaaS-inspired UI/UX** with beautiful gradient token design, smooth `framer-motion` animations, and a fully responsive layout with a mobile-optimized collapsible sidebar dashboard.
 
-> 💡 This project was also implemented as a **Java Swing desktop application** (separate repository) and later upgraded to a full web application for broader accessibility.
+> 💡 This project was originally an **Online Examination System** desktop application, later significantly overhauled into a premium web portal for broader accessibility and feature-rich UX.
 
 ---
 
@@ -31,16 +31,16 @@ The project is built using **React.js** with a beautiful **Glassmorphism / Liqui
 
 | Feature | Description |
 |--------|-------------|
-| 🎨 **Glassmorphism UI** | Modern frosted-glass design with animated gradient backgrounds |
-| 📱 **Fully Responsive** | Works seamlessly on mobile, tablet, and desktop |
-| 🔀 **Question Shuffle** | Questions and answer options are randomized on every attempt |
-| ⏱️ **Countdown Timer** | 10-minute timer per exam with color-coded urgency indicator |
-| ⬅️ **Previous / Next** | Navigate back and forth between questions during the exam |
-| 📊 **Score History** | Session-based history with best score and average tracking |
-| 🏆 **Grade Calculation** | Automatic grade point calculation using a standard grading scale |
-| ✋ **Quit Option** | Students can exit the exam anytime with confirmation |
-| 🚫 **No Login Required** | Students fill basic details and directly start the exam |
-| 🌐 **Live Deployable** | Hosted on Vercel — accessible by anyone with the link |
+| 🎨 **Premium SaaS UI/UX** | Modern component-based architecture with smooth `framer-motion` micro-interactions |
+| 📱 **Responsive Dashboard** | Collapsible sidebar with quick-access hamburger menu for mobile/tablet optimization |
+| 🔀 **Question Shuffle & Pool** | Questions and answer options are intelligently randomized |
+| ⏱️ **Sticky Countdown Timer** | 10-minute sticky timer per exam with color-coded urgency |
+| 🧭 **Advanced Navigator** | Navigate back and forth using a real-time question map grid |
+| 🔎 **Advanced Review System**| Post-exam correct/incorrect highlights with detailed visual filtering |
+| 📜 **Smart Certificates** | Dynamic, verifiable certificate generation with deterministic IDs |
+| 📊 **Score History** | Session-based history with responsive score card grid layout |
+| 🏆 **Grade Calculation** | Automatic grade point logic powered by dynamic thresholds |
+| 🌐 **Live Deployable** | Production-ready architecture easily hosted on Vercel |
 
 ---
 
@@ -49,8 +49,9 @@ The project is built using **React.js** with a beautiful **Glassmorphism / Liqui
 **Frontend:**
 - [React.js 18](https://reactjs.org/) — Component-based UI library
 - [Vite](https://vitejs.dev/) — Lightning-fast build tool
-- Vanilla CSS with Glassmorphism styling
-- HTML5 Canvas API — Animated gradient background
+- [Framer Motion](https://www.framer.com/motion/) — Fluid animations & gestures
+- [Lucide React](https://lucide.dev/) — Clean, consistent iconography
+- Vanilla CSS — Custom robust design system with gradient tokens
 
 **No external UI libraries used** — everything is built from scratch using React and CSS.
 
@@ -212,13 +213,15 @@ Welcome Page
     ↓
 Student Details Form  (Name, Roll No, Course, Semester)
     ↓
-Dashboard             (Sidebar + 6 Subject Cards)
+Dashboard             (Responsive Sidebar + 6 Subject Cards)
     ↓
-Quiz Screen           (25 Shuffled MCQs + 10 min Timer)
+Quiz Screen           (25 Shuffled MCQs + Sticky Timer + Advanced Navigator)
     ↓
-Result Page           (Score + Grade + Grade Point)
+Result & Review       (Score + Grade Point + Advanced Filter Review)
     ↓
-Score History         (All session records)
+Certificate Gen       (Deterministic Smart ID Issuance)
+    ↓
+Score History         (All session records mapped into cards)
 ```
 
 ---
