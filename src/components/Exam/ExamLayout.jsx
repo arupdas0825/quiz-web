@@ -1,48 +1,23 @@
 import React from 'react';
 
-export default function ExamLayout({ leftPane, rightPane, headerLeft, headerRight }) {
+export default function ExamLayout({ header, leftContent, rightContent }) {
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: '#050a18',
-      display: 'flex', flexDirection: 'column',
-      fontFamily: 'Inter, sans-serif'
-    }}>
-      {/* Header */}
-      <header style={{
-        height: '70px',
-        background: 'rgba(10, 16, 36, 0.8)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(255,255,255,0.05)',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 32px', position: 'sticky', top: 0, zIndex: 10
-      }}>
-        <div>{headerLeft}</div>
-        <div>{headerRight}</div>
-      </header>
+    <div className="flex min-h-screen flex-col bg-[#050a18] font-sans selection:bg-blue-500/30">
+      {/* Top Header */}
+      {header}
 
-      {/* Main Content */}
-      <main style={{
-        flex: 1,
-        display: 'grid',
-        gridTemplateColumns: 'minmax(0, 1fr) 340px',
-        gap: '32px',
-        maxWidth: '1400px',
-        width: '100%',
-        margin: '0 auto',
-        padding: '32px'
-      }}>
+      {/* Main Content Area */}
+      {/* Container is flex-col on mobile, grid on large screens */}
+      <main className="mx-auto flex w-full max-w-[1500px] flex-1 flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-8 p-4 md:p-6 lg:p-8">
+        
         {/* Left Pane (Questions, Controls) */}
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          {leftPane}
+        <div className="flex h-full flex-col relative pb-32 md:pb-0">
+          {leftContent}
         </div>
 
-        {/* Right Pane (Timer, Navigator) */}
-        <div style={{
-          display: 'flex', flexDirection: 'column', gap: '24px',
-          position: 'sticky', top: '102px', height: 'fit-content'
-        }}>
-          {rightPane}
+        {/* Right Pane (Navigator Desktop) */}
+        <div className="hidden lg:block relative">
+          {rightContent}
         </div>
       </main>
     </div>

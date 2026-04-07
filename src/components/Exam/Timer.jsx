@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Clock } from 'lucide-react';
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export default function Timer({ initialTimeLeft, onTimeUp, onTick }) {
   const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
 
   useEffect(() => {
-    // We update local state every second
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -25,25 +26,23 @@ export default function Timer({ initialTimeLeft, onTimeUp, onTick }) {
   const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
   const secs = String(timeLeft % 60).padStart(2, '0');
   
-  let color = '#10b981'; // Green > 5min
-  if (timeLeft < 120) color = '#ef4444'; // Red < 2min
-  else if (timeLeft < 300) color = '#eab308'; // Yellow < 5min
+  let status = 'safe'; // Green > 5min
+  if (timeLeft < 120) status = 'danger'; // Red < 2min
+  else if (timeLeft < 300) status = 'warning'; // Yellow < 5min
+
+  const colorClasses = {
+    safe: 'text-emerald-500 border-emerald-500/40 stroke-emerald-500',
+    warning: 'text-yellow-500 border-yellow-500/40 stroke-yellow-500',
+    danger: 'text-red-500 border-red-500/40 stroke-red-500 shadow-[0_0_15px_rgba(239,68,68,0.25)]'
+  };
 
   return (
-    <div style={{
-      display: 'flex', alignItems: 'center', gap: '8px',
-      background: 'rgba(255,255,255,0.05)',
-      padding: '8px 16px', borderRadius: '12px',
-      border: `1px solid ${color}40`,
-      boxShadow: timeLeft < 120 ? `0 0 15px ${color}40` : 'none',
-      transition: 'all 0.3s'
-    }}>
-      <Clock size={18} color={color} />
-      <span style={{
-        fontFamily: 'monospace',
-        fontSize: '20px', fontWeight: '700', color: color,
-        letterSpacing: '2px'
-      }}>
+    <div className={twMerge(
+      "flex items-center gap-2 rounded-xl border bg-white/5 px-2 py-1 md:px-4 md:py-2 transition-all duration-300",
+      colorClasses[status]
+    )}>
+      <Clock size={18} className={colorClasses[status].split(' ').find(c => c.startsWith('stroke-'))} />
+      <span className="font-mono text-sm md:text-lg font-bold tracking-widest">
         {mins}:{secs}
       </span>
     </div>

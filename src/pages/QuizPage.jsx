@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import questionsData from '../data/questions';
 import ExamLayout from '../components/Exam/ExamLayout';
-import Timer from '../components/Exam/Timer';
-import QuestionNavigator from '../components/Exam/QuestionNavigator';
+import Header from '../components/Exam/Header';
 import QuestionCard from '../components/Exam/QuestionCard';
-import Controls from '../components/Exam/Controls';
+import ActionBar from '../components/Exam/ActionBar';
+import NavigatorDrawer from '../components/Exam/NavigatorDrawer';
 import SubmitModal from '../components/Exam/SubmitModal';
 
 // --- Utility Functions ---
@@ -50,6 +50,7 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
   const [examState, setExamState] = useState(null);
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [warningModal, setWarningModal] = useState(false);
+  const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
 
   // --- Initialize or Hydrate Exam State ---
   useEffect(() => {
@@ -93,7 +94,6 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
 
   // --- Handlers ---
   const handleTick = useCallback((secondsLeft) => {
-    // Write directly to local storage to avoid 1s re-renders of the whole page
     const stateStr = localStorage.getItem('examState');
     if (stateStr) {
       const state = JSON.parse(stateStr);
@@ -114,8 +114,6 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
     setExamState(prev => {
       const newAnswers = [...prev.answers];
       newAnswers[prev.currentQuestionIndex] = ansIdx;
-      
-      // If user marks an answer, remove from markedForReview automatically? Optional, let's keep marked as independent
       return { ...prev, answers: newAnswers };
     });
   };
@@ -146,7 +144,6 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
   };
 
   const finalizeExam = useCallback((stateToFinalize) => {
-    // Calculate final score
     let score = 0;
     stateToFinalize.questions.forEach((q, i) => {
       if (stateToFinalize.answers[i] === q.ans) score++;
@@ -171,14 +168,12 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
       answers:     stateToFinalize.answers
     });
     
-    // Wipe local storage since completed
     localStorage.removeItem('examState');
     navigate('result');
   }, [navigate, saveResult, student]);
 
   const handleTimeUp = useCallback(() => {
     alert("Time's up! Your exam has been submitted automatically.");
-    
     setExamState(prev => {
       const finalState = { ...prev, examStatus: 'submitted' };
       localStorage.setItem('examState', JSON.stringify(finalState));
@@ -192,37 +187,28 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
   };
 
   // --- Render Gates ---
-  if (!examState) return null; // Hydrating
-  if (examState.examStatus === 'submitted') return null; // Transitioning
+  if (!examState) return null; 
+  if (examState.examStatus === 'submitted') return null;
 
   const { questions, currentQuestionIndex, answers, visitedQuestions, markedForReview, remainingTime } = examState;
   const currentQ = questions[currentQuestionIndex];
   const isFirst = currentQuestionIndex === 0;
   const isLast = currentQuestionIndex === questions.length - 1;
-
   const answeredCount = answers.filter(a => a !== -1).length;
-  const notAnsweredCount = visitedQuestions.length - answeredCount; // Approx
-  
+
   return (
     <>
       {warningModal && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99999,
-          background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          <div style={{
-            background: '#1e293b', padding: '40px', borderRadius: '16px',
-            textAlign: 'center', maxWidth: '400px', border: '1px solid #ef4444'
-          }}>
-            <h2 style={{ color: '#ef4444', marginBottom: '16px' }}>Warning!</h2>
-            <p style={{ color: '#cbd5e1', marginBottom: '24px', lineHeight: 1.5 }}>
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/85 backdrop-blur-md">
+          <div className="mx-4 max-w-sm rounded-2xl border border-red-500 bg-slate-800 p-8 text-center shadow-2xl">
+            <h2 className="mb-4 text-2xl font-bold text-red-500">Warning!</h2>
+            <p className="mb-6 text-slate-300 leading-relaxed">
               Tab switching or minimizing the browser is strictly prohibited during the exam. The timer has continued validating in the background.
             </p>
-            <button onClick={() => setWarningModal(false)} style={{
-              background: '#ef4444', color: '#fff', border: 'none', padding: '12px 24px',
-              borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold'
-            }}>
+            <button 
+              onClick={() => setWarningModal(false)} 
+              className="rounded-xl bg-red-600 px-6 py-3 font-bold text-white transition hover:bg-red-500 active:scale-95"
+            >
               Acknowledge & Resume
             </button>
           </div>
@@ -240,28 +226,22 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
       />
 
       <ExamLayout
-        headerLeft={
-          <div style={{ display: 'flex', gap: '16px', alignItems: 'baseline' }}>
-            <span style={{ fontSize: '18px', fontWeight: '700', color: '#f8fafc' }}>{subject || 'EXAM'}</span>
-            <span style={{ fontSize: '14px', color: '#94a3b8' }}>
-              Candidate: <span style={{ color: '#e2e8f0', fontWeight: '500' }}>{student?.name || 'Student'}</span>
-            </span>
-          </div>
+        header={
+          <Header
+            subject={subject}
+            studentName={student?.name}
+            remainingTime={remainingTime}
+            handleTick={handleTick}
+            handleTimeUp={handleTimeUp}
+            onQuit={() => {
+              if (window.confirm("Quit exam? Progress will be lost.")) {
+                localStorage.removeItem('examState');
+                navigate('dashboard');
+              }
+            }}
+          />
         }
-        headerRight={
-          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-             <button onClick={() => {
-                if(window.confirm("Quit exam? Progress will be lost.")) {
-                   localStorage.removeItem('examState');
-                   navigate('dashboard');
-                }
-             }} style={{
-               background: 'transparent', color: '#ef4444', border: '1px solid #ef444440',
-               padding: '6px 16px', borderRadius: '6px', cursor: 'pointer', fontWeight: '500'
-             }}>Quit</button>
-          </div>
-        }
-        leftPane={
+        leftContent={
           <>
             <QuestionCard
               question={currentQ}
@@ -270,7 +250,7 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
               selectedAnswer={answers[currentQuestionIndex]}
               onSelectAnswer={handleSelectAnswer}
             />
-            <Controls
+            <ActionBar
               isFirst={isFirst}
               isLast={isLast}
               onPrev={handlePrev}
@@ -280,22 +260,17 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
             />
           </>
         }
-        rightPane={
-          <>
-            <Timer 
-              initialTimeLeft={remainingTime} 
-              onTick={handleTick} 
-              onTimeUp={handleTimeUp} 
-            />
-            <QuestionNavigator
-              total={questions.length}
-              current={currentQuestionIndex}
-              onSelect={navigateTo}
-              visited={visitedQuestions}
-              answers={answers}
-              marked={markedForReview}
-            />
-          </>
+        rightContent={
+          <NavigatorDrawer
+            isOpen={isNavigatorOpen}
+            setIsOpen={setIsNavigatorOpen}
+            total={questions.length}
+            current={currentQuestionIndex}
+            onSelect={navigateTo}
+            visited={visitedQuestions}
+            answers={answers}
+            marked={markedForReview}
+          />
         }
       />
     </>
