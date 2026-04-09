@@ -1,16 +1,20 @@
 import { useEffect, useRef } from 'react'
+import QuizPortalLogo from '../components/QuizPortalLogo'
+import { useTheme } from '../context/ThemeContext'
 
 const subjects = [
-  { code: 'DBMS',   color: '#1a6cd4' },
-  { code: 'OOPS',   color: '#7a00b8' },
+  { code: 'DBMS', color: '#1a6cd4' },
+  { code: 'JAVA', color: '#7a00b8' },
   { code: 'PYTHON', color: '#b48200' },
-  { code: 'C',      color: '#c43210' },
-  { code: 'COA',    color: '#008c82' },
-  { code: 'DSA',    color: '#b40050' },
+  { code: 'C', color: '#c43210' },
+  { code: 'COA', color: '#008c82' },
+  { code: 'DSA', color: '#b40050' },
+
 ]
 
 export default function WelcomePage({ navigate, history }) {
   const canvasRef = useRef(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -18,7 +22,7 @@ export default function WelcomePage({ navigate, history }) {
     let hue1 = 240, hue2 = 280, animId
 
     const resize = () => {
-      canvas.width  = window.innerWidth
+      canvas.width = window.innerWidth
       canvas.height = window.innerHeight
     }
     resize()
@@ -26,26 +30,31 @@ export default function WelcomePage({ navigate, history }) {
 
     const draw = () => {
       const w = canvas.width, h = canvas.height
-      // Gradient BG
+      // Gradient BG (adapt based on theme context if ever extended, for now keeps current logic or light mode tint)
       const grd = ctx.createLinearGradient(0, 0, w, h)
-      grd.addColorStop(0, `hsl(${hue1},70%,10%)`)
-      grd.addColorStop(1, `hsl(${hue2},80%,7%)`)
+      if (theme === 'light') {
+        grd.addColorStop(0, `hsl(${hue1},70%,90%)`)
+        grd.addColorStop(1, `hsl(${hue2},80%,85%)`)
+      } else {
+        grd.addColorStop(0, `hsl(${hue1},70%,10%)`)
+        grd.addColorStop(1, `hsl(${hue2},80%,7%)`)
+      }
       ctx.fillStyle = grd
       ctx.fillRect(0, 0, w, h)
 
       // Blobs
       const drawBlob = (x, y, r, hue) => {
         const g = ctx.createRadialGradient(x, y, 0, x, y, r)
-        g.addColorStop(0, `hsla(${hue},90%,60%,0.22)`)
-        g.addColorStop(1, `hsla(${hue},90%,60%,0)`)
+        g.addColorStop(0, `hsla(${hue},90%,${theme === 'light' ? '80' : '60'}%,0.22)`)
+        g.addColorStop(1, `hsla(${hue},90%,${theme === 'light' ? '80' : '60'}%,0)`)
         ctx.fillStyle = g
         ctx.beginPath()
         ctx.arc(x, y, r, 0, Math.PI * 2)
         ctx.fill()
       }
-      drawBlob(w * 0.1,  h * 0.15, 260, hue1)
-      drawBlob(w * 0.85, h * 0.8,  300, hue2)
-      drawBlob(w * 0.5,  h * 0.9,  200, (hue1 + 40) % 360)
+      drawBlob(w * 0.1, h * 0.15, 260, hue1)
+      drawBlob(w * 0.85, h * 0.8, 300, hue2)
+      drawBlob(w * 0.5, h * 0.9, 200, (hue1 + 40) % 360)
 
       hue1 = (hue1 + 0.25) % 360
       hue2 = (hue2 + 0.30) % 360
@@ -57,11 +66,13 @@ export default function WelcomePage({ navigate, history }) {
       cancelAnimationFrame(animId)
       window.removeEventListener('resize', resize)
     }
-  }, [])
+  }, [theme])
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh',
-                  display: 'flex', flexDirection: 'column' }}>
+    <div style={{
+      position: 'relative', minHeight: '100vh',
+      display: 'flex', flexDirection: 'column'
+    }}>
 
       {/* Animated Canvas BG */}
       <canvas ref={canvasRef} style={{
@@ -78,9 +89,7 @@ export default function WelcomePage({ navigate, history }) {
         padding: '14px 32px',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center'
       }}>
-        <span style={{ color: '#6eb4ff', fontWeight: 'bold', fontSize: 16 }}>
-          ⬡ &nbsp;EXAM PORTAL
-        </span>
+        <QuizPortalLogo theme="dark" size="sm" />
         <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>v1.0</span>
       </nav>
 
@@ -93,9 +102,13 @@ export default function WelcomePage({ navigate, history }) {
         animation: 'fadeIn 0.6s ease'
       }}>
 
+        <div style={{ marginBottom: 24, display: 'flex', justifyContent: 'center' }}>
+          <QuizPortalLogo theme={theme} size="lg" />
+        </div>
+
         {/* Title */}
         <h1 style={{
-          color: '#fff', fontSize: 'clamp(22px, 4vw, 36px)',
+          color: theme === 'light' ? '#0f172a' : '#fff', fontSize: 'clamp(22px, 4vw, 36px)',
           fontWeight: 'bold', textAlign: 'center', marginBottom: 8
         }}>
           Online Examination System
@@ -133,9 +146,9 @@ export default function WelcomePage({ navigate, history }) {
         }}>
           {[
             { val: '25', lbl: 'Questions', color: '#1a7cdc' },
-            { val: '25', lbl: 'Marks',     color: '#14a050' },
-            { val: '10', lbl: 'Minutes',   color: '#c87800' },
-            { val: '6',  lbl: 'Subjects',  color: '#8800cc' },
+            { val: '25', lbl: 'Marks', color: '#14a050' },
+            { val: '10', lbl: 'Minutes', color: '#c87800' },
+            { val: '6', lbl: 'Subjects', color: '#8800cc' },
           ].map(c => (
             <div key={c.lbl} className="glass" style={{
               padding: '14px 24px', textAlign: 'center',

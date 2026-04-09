@@ -187,7 +187,14 @@ export default function ReviewPage({ navigate, student, result, startCustomQuiz 
 
                   <div style={{ flex: 1 }}>
                     <div style={{ color: '#e2e8f0', fontSize: '16px', fontWeight: '600', marginBottom: '20px', lineHeight: '1.5' }}>
-                      <span style={{ color: '#94a3b8', marginRight: '8px' }}>Q{q.originalIndex + 1}.</span> {q.q}
+                      <span style={{ color: '#94a3b8', marginRight: '8px' }}>Q{q.originalIndex + 1}.</span> 
+                      {(() => {
+                        let t = q?.q || q?.text || q?.questionText || q?.content || "Question not available";
+                        if (typeof t === 'string') {
+                           t = t.replace(/^\[([TC])\]\s*Q\d+\.\s*/, '[$1] ');
+                        }
+                        return t;
+                      })()}
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

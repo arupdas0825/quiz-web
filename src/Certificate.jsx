@@ -1,141 +1,112 @@
 import React, { forwardRef } from "react";
-import { Award, Frown, Smile } from "lucide-react";
 
 const Certificate = forwardRef(({ name, score, subject, date, isPass }, ref) => {
+  const theme = isPass ? {
+    bg: '#050a18',
+    innerBg: '#0a1024',
+    primary: '#fbbf24',
+    secondary: '#cbd5e1',
+    accent: '#10b981',
+    font: '#f8fafc',
+    watermark: 'CERTIFIED',
+    title: 'Certificate of Achievement',
+    desc: 'for successfully passing the assessment in',
+    scoreLabel: 'with a verified score of'
+  } : {
+    bg: '#fef3c7',
+    innerBg: '#fffbeb',
+    primary: '#d97706',
+    secondary: '#78350f',
+    accent: '#f59e0b',
+    font: '#451a03',
+    watermark: 'ATTEMPTED',
+    title: 'Certificate of Participation',
+    desc: 'for bravely attempting the assessment in',
+    scoreLabel: 'achieving a score of'
+  };
+
+  const Corner = ({ top, right, bottom, left }) => (
+    <div style={{
+      position: 'absolute',
+      width: '60px',
+      height: '60px',
+      top: top ? '24px' : 'auto',
+      bottom: bottom ? '24px' : 'auto',
+      left: left ? '24px' : 'auto',
+      right: right ? '24px' : 'auto',
+      borderTop: top ? `4px solid ${theme.primary}` : 'none',
+      borderBottom: bottom ? `4px solid ${theme.primary}` : 'none',
+      borderLeft: left ? `4px solid ${theme.primary}` : 'none',
+      borderRight: right ? `4px solid ${theme.primary}` : 'none',
+    }} />
+  );
+
   return (
-    <div
-      ref={ref}
-      style={{
-        width: '297mm', // A4 Landscape
-        height: '210mm',
-        backgroundColor: '#ffffff',
-        fontFamily: 'Inter, sans-serif',
-        padding: '24px',
-        boxSizing: 'border-box'
-      }}
-    >
-      <div style={{
-        width: '100%',
-        height: '100%',
-        border: isPass ? '12px solid #0f172a' : '12px solid #f87171',
-        padding: '12px',
-        position: 'relative',
-        boxSizing: 'border-box'
-      }}>
-        <div style={{
-          width: '100%',
-          height: '100%',
-          border: isPass ? '2px solid #e2e8f0' : '2px dashed #fca5a5',
-          backgroundColor: isPass ? '#fafafa' : '#fff5f5',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          padding: '60px',
-          boxSizing: 'border-box'
-        }}>
+    <div ref={ref} style={{ width: '297mm', height: '210mm', backgroundColor: theme.bg, fontFamily: 'Inter, sans-serif', padding: '24px', boxSizing: 'border-box' }}>
+      <style>
+        {`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');`}
+      </style>
+      <div style={{ width: '100%', height: '100%', backgroundColor: theme.innerBg, padding: '40px', position: 'relative', boxSizing: 'border-box', overflow: 'hidden' }}>
+        
+        {/* Corners */}
+        <Corner top left />
+        <Corner top right />
+        <Corner bottom left />
+        <Corner bottom right />
+
+        {/* Watermark */}
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%) rotate(-15deg)', opacity: 0.04, pointerEvents: 'none', fontSize: '160px', fontWeight: '900', color: theme.primary, letterSpacing: '24px', whiteSpace: 'nowrap', zIndex: 0 }}>
+          {theme.watermark}
+        </div>
+
+        {/* Content */}
+        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', textAlign: 'center' }}>
           
-          {/* Watermark Logo */}
-          <div style={{
-            position: 'absolute',
-            top: '50%', left: '50%', transform: 'translate(-50%, -50%) rotate(-15deg)',
-            opacity: 0.03, pointerEvents: 'none'
-          }}>
-            {isPass ? <Award size={600} /> : <Frown size={600} />}
-          </div>
-
-          <div style={{
-            color: isPass ? '#0f172a' : '#b91c1c',
-            marginTop: '-20px', marginBottom: '20px'
-          }}>
-            {isPass ? <Award size={80} strokeWidth={1.5} /> : <Smile size={80} strokeWidth={1.5} />}
-          </div>
-
-          <h1 style={{
-            fontSize: '48px', fontWeight: '800',
-            color: isPass ? '#1e293b' : '#991b1b',
-            textTransform: 'uppercase', letterSpacing: '4px',
-            marginBottom: '40px', textAlign: 'center'
-          }}>
-            {isPass ? "Certificate of Achievement" : "Certificate of Participation 😄"}
+          <h1 style={{ fontFamily: '"Playfair Display", serif', fontSize: '56px', fontWeight: '700', color: theme.primary, margin: '0 0 24px 0', letterSpacing: '2px' }}>
+            {theme.title}
           </h1>
 
-          <p style={{
-            fontSize: '20px', color: '#64748b', marginBottom: '20px', fontStyle: 'italic'
-          }}>
+          <p style={{ fontSize: '22px', color: theme.secondary, margin: '0 0 20px 0', fontStyle: 'italic', fontFamily: '"Playfair Display", serif' }}>
             This certificate is proudly presented to
           </p>
 
-          <h2 style={{
-            fontSize: '42px', fontWeight: '700', color: '#0f172a',
-            borderBottom: '2px solid #cbd5e1', paddingBottom: '10px',
-            marginBottom: '20px', textAlign: 'center', width: '80%'
-          }}>
+          <h2 style={{ fontSize: '48px', fontWeight: '700', color: theme.font, borderBottom: `2px solid ${theme.primary}40`, paddingBottom: '12px', margin: '0 0 24px 0', width: '75%', textTransform: 'capitalize' }}>
             {name}
           </h2>
 
-          <p style={{
-            fontSize: '20px', color: '#64748b', marginBottom: '10px'
-          }}>
-            {isPass ? "for successfully passing the assessment in" : "for bravely attempting the assessment in"}
+          <p style={{ fontSize: '20px', color: theme.secondary, margin: '0 0 12px 0' }}>
+            {theme.desc}
           </p>
 
-          <h3 style={{
-            fontSize: '28px', fontWeight: '600', color: '#334155',
-            marginBottom: '20px'
-          }}>
+          <h3 style={{ fontSize: '32px', fontWeight: '600', color: theme.font, margin: '0 0 24px 0', letterSpacing: '1px' }}>
             {subject}
           </h3>
 
-          <p style={{
-            fontSize: '20px', color: '#64748b', marginBottom: '10px'
-          }}>
-            {isPass ? "with a verified score of" : "achieving a score of"}
+          <p style={{ fontSize: '20px', color: theme.secondary, margin: '0 0 6px 0' }}>
+            {theme.scoreLabel}
           </p>
 
-          <h1 style={{
-            fontSize: '48px', fontWeight: '800',
-            color: isPass ? '#10b981' : '#f59e0b',
-            marginBottom: '40px'
-          }}>
+          <h1 style={{ fontSize: '64px', fontWeight: '800', color: theme.accent, margin: '0 0 16px 0', textShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
             {score}%
           </h1>
 
           {!isPass && (
-            <p style={{
-              fontSize: '18px', color: '#ef4444', fontStyle: 'italic', fontWeight: '500', marginBottom: '20px'
-            }}>
-              "Better luck next time! Learning is a journey." 🚀
+            <p style={{ fontSize: '18px', color: theme.primary, fontStyle: 'italic', fontWeight: '600', margin: '0 0 20px 0' }}>
+              "Better luck next time! Learning is a continuous journey." 
             </p>
           )}
 
-          {/* Footer Signatures */}
-          <div style={{
-            display: 'flex', width: '100%', justifyContent: 'space-between',
-            marginTop: 'auto', padding: '0 40px'
-          }}>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{
-                fontSize: '18px', fontWeight: '600', color: '#0f172a',
-                borderBottom: '1px solid #cbd5e1', paddingBottom: '8px', padding: '0 20px', marginBottom: '8px'
-              }}>
-                {date}
-              </div>
-              <div style={{ fontSize: '14px', color: '#64748b' }}>Date of Issue</div>
+          {/* Footer Branding */}
+          <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ width: '40px', height: '3px', backgroundColor: theme.primary, marginBottom: '20px', opacity: 0.5 }} />
+            <div style={{ fontSize: '16px', fontWeight: '700', color: theme.font, letterSpacing: '2px', textTransform: 'uppercase' }}>
+              QuizPortal System
             </div>
-
-            <div style={{ textAlign: 'center' }}>
-              <div style={{
-                fontSize: '28px', fontFamily: "'Brush Script MT', cursive, serif", color: '#0f172a',
-                borderBottom: '1px solid #cbd5e1', paddingBottom: '2px', padding: '0 20px', marginBottom: '8px',
-                height: '40px', lineHeight: '40px'
-              }}>
-                Arup Das
-              </div>
-              <div style={{ fontSize: '14px', color: '#64748b' }}>Course Instructor</div>
+            <div style={{ fontSize: '14px', color: theme.secondary, marginTop: '8px', fontWeight: '500' }}>
+              {date}
             </div>
           </div>
+
         </div>
       </div>
     </div>

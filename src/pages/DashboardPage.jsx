@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { Database, Coffee, MonitorPlay, Settings, Cpu, Network, LayoutDashboard, History, Home, Info, BookOpen, Clock, Target, Menu, X } from 'lucide-react'
+import QuizPortalLogo from '../components/QuizPortalLogo'
+import { useTheme } from '../context/ThemeContext'
 
 const SUBJECTS = [
   { code:'DBMS',   name:'Database Management System', color:'#3b82f6', icon: <Database size={28} /> },
-  { code:'OOPS',   name:'Object Oriented Programming', color:'#8b5cf6', icon: <Coffee size={28} /> },
+  { code:'JAVA',   name:'JAVA', color:'#8b5cf6', icon: <Coffee size={28} /> },
   { code:'PYTHON', name:'Python Programming',          color:'#eab308', icon: <MonitorPlay size={28} /> },
   { code:'C',      name:'C Programming',               color:'#ef4444', icon: <Settings size={28} /> },
   { code:'COA',    name:'Computer Org. & Architecture',color:'#10b981', icon: <Cpu size={28} /> },
   { code:'DSA',    name:'Data Structures & Algorithms',color:'#ec4899', icon: <Network size={28} /> },
+  { code:'ANTIGRAVITY', name:'Antigravity AI Mastery', color:'#3b82f6', icon: <Cpu size={28} /> },
 ]
 
 export default function DashboardPage({ navigate, student, setSubject, history }) {
   const [activePage, setActivePage] = useState('dashboard')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const { theme } = useTheme()
 
   // Prevent body scroll when sidebar is open on mobile
   useEffect(() => {
@@ -23,7 +27,7 @@ export default function DashboardPage({ navigate, student, setSubject, history }
   return (
     <div style={{
       minHeight:'100vh', display:'flex',
-      background:'#050a18',
+      background:'var(--bg-primary)',
       fontFamily:'Inter, sans-serif'
     }}>
 
@@ -36,13 +40,13 @@ export default function DashboardPage({ navigate, student, setSubject, history }
       )}
 
       {/* ══ SIDEBAR ══ */}
-      <div className={`sidebar-mobile ${isSidebarOpen ? 'open' : ''}`}>
+      <div className={`sidebar-mobile ${isSidebarOpen ? 'open' : ''}`} style={{ background: 'var(--bg-secondary)', borderRight: '1px solid var(--border)' }}>
         
         {/* Close Button (Mobile Only) */}
         <button
           className="lg-hidden-btn"
           onClick={() => setIsSidebarOpen(false)}
-          style={{ position: 'absolute', top: '16px', right: '16px', background: 'transparent', border: 'none', color: '#94a3b8', padding: '8px', cursor: 'pointer' }}
+          style={{ position: 'absolute', top: '16px', right: '16px', background: 'transparent', border: 'none', color: 'var(--text-secondary)', padding: '8px', cursor: 'pointer' }}
         >
           <X size={24} />
         </button>
@@ -50,14 +54,10 @@ export default function DashboardPage({ navigate, student, setSubject, history }
         {/* Logo */}
         <div style={{
           padding: '24px',
-          borderBottom: '1px solid rgba(255,255,255,0.05)'
+          borderBottom: '1px solid var(--border)',
+          display: 'flex', justifyContent: 'center'
         }}>
-          <div style={{ color: '#e2e8f0', fontWeight: '700', fontSize: 18, display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)', padding: 6, borderRadius: 8}}>
-              <LayoutDashboard size={20} color="#fff" />
-            </div>
-            QuizPortal
-          </div>
+          <QuizPortalLogo theme={theme} size="sm" />
         </div>
 
         {/* Student Info */}

@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, LayoutDashboard } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, Sun, Moon } from 'lucide-react';
+import QuizPortalLogo from './QuizPortalLogo';
+import { useTheme } from '../context/ThemeContext';
 
 export default function HeaderNavigation({ title, navigate, showBack = true, showDashboard = true }) {
+  const { theme, toggleTheme } = useTheme();
+
   // Optional keyboard shortcut listener
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -16,9 +20,9 @@ export default function HeaderNavigation({ title, navigate, showBack = true, sho
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: 'rgba(10, 16, 36, 0.85)',
+      background: 'var(--bg-primary, rgba(10, 16, 36, 0.85))',
       backdropFilter: 'blur(16px)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+      borderBottom: '1px solid var(--border)',
       padding: '16px 32px',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)'
@@ -31,22 +35,22 @@ export default function HeaderNavigation({ title, navigate, showBack = true, sho
             title="Go back (Esc)"
             style={{
               background: 'transparent',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: '1px solid var(--border)',
               borderRadius: '8px',
               padding: '8px 16px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               display: 'flex', alignItems: 'center', gap: '8px',
               fontSize: '14px', fontWeight: '500',
               transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
             onMouseOver={(e) => {
-              e.currentTarget.style.color = '#fff';
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+              e.currentTarget.style.color = 'var(--text-primary)';
+              e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)';
               e.currentTarget.style.transform = 'translate(-2px, 0)';
             }}
             onMouseOut={(e) => {
-              e.currentTarget.style.color = '#cbd5e1';
+              e.currentTarget.style.color = 'var(--text-secondary)';
               e.currentTarget.style.background = 'transparent';
               e.currentTarget.style.transform = 'translate(0, 0)';
             }}
@@ -58,21 +62,35 @@ export default function HeaderNavigation({ title, navigate, showBack = true, sho
 
       {/* Center: Title / Breadcrumb */}
       <div style={{ flex: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <h1 style={{ 
-          color: '#f8fafc', fontSize: '18px', fontWeight: '700', 
-          margin: 0, letterSpacing: '0.5px' 
+        <QuizPortalLogo theme={theme} size="sm" />
+        <div style={{ 
+          color: 'var(--text-secondary)', fontSize: '12px', marginTop: '4px', fontWeight: '500'
         }}>
           {title}
-        </h1>
-        <div style={{ 
-          color: '#64748b', fontSize: '12px', marginTop: '4px', fontWeight: '500'
-        }}>
-          Dashboard <span style={{ opacity: 0.5 }}>/</span> Score History
         </div>
       </div>
 
-      {/* Right side: Dashboard CTA */}
-      <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+      {/* Right side: Dashboard CTA & Theme Toggle */}
+      <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', gap: '16px', alignItems: 'center' }}>
+        <button
+          onClick={toggleTheme}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            color: 'var(--text-primary)',
+            cursor: 'pointer',
+            padding: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%',
+          }}
+          onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
+          onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+        >
+          {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+        </button>
+
         {showDashboard && (
           <button
             onClick={() => navigate('dashboard')}

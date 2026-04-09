@@ -191,6 +191,17 @@ export default function QuizPage({ navigate, student, subject, saveResult, custo
   if (examState.examStatus === 'submitted') return null;
 
   const { questions, currentQuestionIndex, answers, visitedQuestions, markedForReview, remainingTime } = examState;
+  
+  if (!questions || questions.length === 0) {
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center bg-[#0f172a] p-4 text-center">
+        <h2 className="text-2xl font-bold text-red-400 mb-2">No Questions Available</h2>
+        <p className="text-slate-400 mb-6 max-w-sm">We couldn't load any questions for this subject. Please return to the dashboard.</p>
+        <button onClick={() => navigate('dashboard')} className="rounded-xl border border-white/10 bg-slate-800 px-6 py-2 pb-2.5 font-semibold text-white drop-shadow-md hover:bg-slate-700 active:scale-95">Go to Dashboard</button>
+      </div>
+    );
+  }
+
   const currentQ = questions[currentQuestionIndex];
   const isFirst = currentQuestionIndex === 0;
   const isLast = currentQuestionIndex === questions.length - 1;

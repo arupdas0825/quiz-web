@@ -18,7 +18,13 @@ export default function QuestionCard({ question, index, total, selectedAnswer, o
       <div className="mb-2">
         <h2 className="text-lg md:text-xl font-semibold leading-relaxed text-slate-100">
           <span className="mr-2 text-slate-500">Q{index + 1}.</span>
-          {question.text}
+          {(() => {
+            let t = question?.q || question?.text || question?.questionText || question?.content || "Question not available";
+            if (typeof t === 'string') {
+               t = t.replace(/^\[([TC])\]\s*Q\d+\.\s*/, '[$1] ');
+            }
+            return t;
+          })()}
         </h2>
       </div>
 

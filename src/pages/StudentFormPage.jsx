@@ -89,7 +89,7 @@ export default function StudentFormPage({ navigate, setStudent }) {
         display:'flex', justifyContent:'space-between', alignItems:'center'
       }}>
         <span style={{ color:'rgba(180,200,255,0.9)', fontWeight:'bold', fontSize:14 }}>
-          ⬡ EXAM PORTAL &nbsp;/&nbsp; Student Registration
+          ⬡ QUIZ PORTAL &nbsp;/&nbsp; Student Registration
         </span>
         <button className="btn-glass" onClick={() => navigate('welcome')}
           style={{

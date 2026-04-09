@@ -8,12 +8,27 @@
   box-sizing: border-box;
 }
 
+.light-theme {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border: rgba(0,0,0,0.1);
+}
+.dark-theme {
+  --bg-primary: #050a18;
+  --bg-secondary: #0f172a;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border: rgba(255,255,255,0.08);
+}
+
 body {
   font-family: 'Inter', 'Poppins', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: #050a18;
-  color: #f1f5f9;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 ::-webkit-scrollbar {

@@ -8,6 +8,8 @@ import ResultPage       from './pages/ResultPage'
 import HistoryPage      from './pages/HistoryPage'
 import CertificatePage  from './pages/CertificatePage'
 
+import { ThemeProvider } from './context/ThemeContext'
+
 export default function App() {
   const [page,    setPage]    = useState('welcome')
   const [pageHistory, setPageHistory] = useState(['welcome'])
@@ -56,7 +58,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <ThemeProvider>
       {page === 'welcome' && (
         <WelcomePage
           navigate={navigate}
@@ -114,6 +116,6 @@ export default function App() {
           history={history}
         />
       )}
-    </>
+    </ThemeProvider>
   )
 }
