@@ -10,8 +10,7 @@ const SUBJECTS = [
   { code:'C',      name:'C Programming',               color:'#ef4444', icon: <Settings size={28} /> },
   { code:'COA',    name:'Computer Org. & Architecture',color:'#10b981', icon: <Cpu size={28} /> },
   { code:'DSA',    name:'Data Structures & Algorithms',color:'#ec4899', icon: <Network size={28} /> },
-  { code:'ANTIGRAVITY', name:'Antigravity AI Mastery', color:'#3b82f6', icon: <Cpu size={28} /> },
-]
+ ]
 
 export default function DashboardPage({ navigate, student, setSubject, history }) {
   const [activePage, setActivePage] = useState('dashboard')
