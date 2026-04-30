@@ -134,7 +134,8 @@ Each exam comprises **25 marks** (1 mark per correct answer, no negative impact)
 
 
 ### 🔎 Advanced Review System
-<img width="1691" height="727" alt="image" src="https://github.com/user-attachments/assets/7106572b-2668-469e-9cd8-e93fc0ae3792" />
+<img width="1613" height="739" alt="image" src="https://github.com/user-attachments/assets/60e9a98c-4d32-48ea-8035-2be01ed44d54" />
+
 
 
 ### 📈 History Page
