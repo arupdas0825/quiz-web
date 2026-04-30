@@ -128,13 +128,18 @@ Each exam comprises **25 marks** (1 mark per correct answer, no negative impact)
 <img width="1889" height="802" alt="image" src="https://github.com/user-attachments/assets/d252647a-6bec-45db-8c75-ab2145831632" />
 
 ### 📝 Exam Screen
-> Progress bar, countdown timer, glass option cards, Prev/Next navigation
+<img width="1885" height="853" alt="image" src="https://github.com/user-attachments/assets/b9055e08-d37c-45bf-a946-1f018fef93a4" />
+<img width="1874" height="858" alt="image" src="https://github.com/user-attachments/assets/27af80fa-0f64-40b8-a360-0fc6653b7f19" />
+
+
 
 ### 🔎 Advanced Review System
-*(Placeholder for question filtering UI and correct/incorrect highlight states)*
+<img width="1691" height="727" alt="image" src="https://github.com/user-attachments/assets/7106572b-2668-469e-9cd8-e93fc0ae3792" />
+
 
 ### 📈 History Page
-> Session-based exam records with best score summary
+<img width="1883" height="509" alt="image" src="https://github.com/user-attachments/assets/87419833-f95f-4138-92b1-75bc126d2dae" />
+
 
 ---
 
